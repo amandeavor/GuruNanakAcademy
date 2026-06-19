@@ -86,7 +86,7 @@ export function FacilitiesPreview() {
             <Link
               href={featured.href}
               className={cn(
-                'group relative flex h-full flex-col rounded-2xl border border-border/60 bg-card p-8 md:p-10',
+                'group relative flex h-full flex-col rounded-2xl border border-border/60 bg-card p-5 xs:p-6 sm:p-8 md:p-10',
                 'transition-all duration-300 hover:border-primary/30 hover:bg-primary/[0.02] hover:shadow-xl dark:hover:border-white/20 dark:hover:bg-white/[0.05]'
               )}
             >
@@ -132,7 +132,7 @@ export function FacilitiesPreview() {
                   <Link
                     href={facility.href}
                     className={cn(
-                      'group relative flex h-full flex-col rounded-2xl border border-border/60 bg-card p-6',
+                      'group relative flex h-full flex-col rounded-2xl border border-border/60 bg-card p-5 xs:p-6',
                       'transition-all duration-300 hover:border-primary/30 hover:bg-primary/[0.02] hover:shadow-lg dark:hover:border-white/20 dark:hover:bg-white/[0.05]'
                     )}
                   >

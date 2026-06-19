@@ -180,10 +180,10 @@ export function Header() {
 
                 {/* CTA Buttons in Mobile */}
                 <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4">
-                  <Button asChild>
+                  <Button asChild size="lg">
                     <Link href="/admission/form">Apply for Admission</Link>
                   </Button>
-                  <Button variant="outline" asChild>
+                  <Button variant="outline" asChild size="lg">
                     <Link href="/pay-fee">
                       Pay Fee
                     </Link>

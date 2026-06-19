@@ -121,7 +121,7 @@ export function Hero() {
                 animate="visible"
                 variants={textVariants}
               >
-                <span className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-white/80 backdrop-blur-md">
+                <span className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-wider xs:tracking-widest text-white/80 backdrop-blur-md">
                   <span className="h-1.5 w-1.5 rounded-full bg-white/60" aria-hidden="true" />
                   Admissions Open 2026–27
                 </span>
@@ -133,7 +133,7 @@ export function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={textVariants}
-                className="mt-4 text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl lg:leading-[1.08]"
+                className="mt-4 text-balance text-2xl font-semibold tracking-tight text-white xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl lg:leading-[1.08]"
               >
                 {SCHOOL_INFO.name}
               </motion.h1>
@@ -144,7 +144,7 @@ export function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={textVariants}
-                className="mt-4 max-w-xl text-sm leading-relaxed text-white/70 md:text-lg"
+                className="mt-4 max-w-xl text-sm leading-relaxed text-white/70 xs:text-base md:text-lg"
               >
                 {SCHOOL_INFO.tagline}. Nurturing minds and building character
                 since {SCHOOL_INFO.founded} on our {SCHOOL_INFO.campusSize}{' '}
@@ -162,7 +162,7 @@ export function Hero() {
                 <Button
                   asChild
                   size="xl"
-                  className="group bg-white text-black hover:bg-white/90 border-0 font-medium"
+                  className="group bg-white text-black hover:bg-white/90 border-0 font-medium w-full h-12 text-base px-6 xs:h-14 xs:text-lg xs:px-10 xs:w-auto"
                 >
                   <Link href="/admission/form">
                     Apply for Admission
@@ -176,7 +176,7 @@ export function Hero() {
                   asChild
                   variant="outline"
                   size="xl"
-                  className="group border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm"
+                  className="group border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm w-full h-12 text-base px-6 xs:h-14 xs:text-lg xs:px-10 xs:w-auto"
                 >
                   <Link href="/pay-fee">
                     <CreditCard
@@ -194,7 +194,7 @@ export function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={textVariants}
-                className="mt-6 flex flex-wrap items-center gap-3 md:gap-8"
+                className="mt-6 grid grid-cols-2 gap-y-4 gap-x-6 xs:flex xs:flex-wrap xs:items-center xs:gap-6 md:gap-8"
               >
                 {[
                   { value: '13', suffix: ' Acres', label: 'Campus' },
@@ -221,7 +221,7 @@ export function Hero() {
                       {stat.label}
                     </span>
                     {i < 3 && (
-                      <span className="ml-4 hidden h-5 w-px bg-white/15 md:block" aria-hidden="true" />
+                      <span className="ml-4 hidden h-5 w-px bg-white/15 xs:block" aria-hidden="true" />
                     )}
                   </motion.div>
                 ))}
