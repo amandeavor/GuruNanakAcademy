@@ -157,12 +157,12 @@ export function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={textVariants}
-                className="mt-6 flex flex-col gap-3 xs:flex-row xs:items-center"
+                className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"
               >
                 <Button
                   asChild
                   size="xl"
-                  className="group bg-white text-black hover:bg-white/90 border-0 font-medium w-full h-12 text-base px-6 xs:h-14 xs:text-lg xs:px-10 xs:w-auto"
+                  className="group bg-white text-black hover:bg-white/90 border-0 font-medium w-full h-12 text-base px-6 sm:h-14 sm:text-lg sm:px-8 sm:w-auto"
                 >
                   <Link href="/admission/form">
                     Apply for Admission
@@ -176,7 +176,7 @@ export function Hero() {
                   asChild
                   variant="outline"
                   size="xl"
-                  className="group border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm w-full h-12 text-base px-6 xs:h-14 xs:text-lg xs:px-10 xs:w-auto"
+                  className="group border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm w-full h-12 text-base px-6 sm:h-14 sm:text-lg sm:px-8 sm:w-auto"
                 >
                   <Link href="/pay-fee">
                     <CreditCard
