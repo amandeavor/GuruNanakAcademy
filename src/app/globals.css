@@ -1,0 +1,504 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Premium Purple Light Theme */
+    --background: 250 246 251;      /* Soft cream background with a lavender tint #FAF6FB */
+    --foreground: 45 35 48;         /* Dark warm charcoal/eggplant text #2D2330 */
+
+    --card: 255 255 255;            /* White cards */
+    --card-foreground: 45 35 48;
+
+    --primary: 124 58 237;          /* Royal Purple #7C3AED */
+    --primary-foreground: 255 255 255;
+
+    --secondary: 243 236 245;       /* Soft warm lavender/cream #F3ECF5 */
+    --secondary-foreground: 45 35 48;
+
+    --muted: 243 236 245;           /* Same soft lavender cream for muted areas */
+    --muted-foreground: 142 126 144;/* Lavender-gray #8E7E90 */
+
+    --accent: 245 240 251;          /* Soft lavender tint #F5F0FB */
+    --accent-foreground: 124 58 237;
+
+    --border: 234 223 234;          /* Light lavender border #EADFEA */
+    --input: 234 223 234;
+
+    --ring: 124 58 237;
+
+    /* Theme-specific glows */
+    --radial-glow: rgba(124, 58, 237, 0.08);
+  }
+
+  .dark {
+    /* Premium Dark Theme with Glowing Lavender Brand Colors */
+    --background: 11 11 11;          /* Deep rich obsidian #0B0B0B */
+    --foreground: 236 236 236;      /* Off-white */
+
+    --card: 20 20 20;               /* Dark card bg */
+    --card-foreground: 236 236 236;
+
+    --primary: 167 139 250;          /* Glowing Lavender/Violet #A78BFA */
+    --primary-foreground: 11 11 11; /* Deep obsidian text */
+
+    --secondary: 28 25 36;          /* Deep lavender-tinted dark gray #1C1924 */
+    --secondary-foreground: 236 236 236;
+
+    --muted: 24 24 24;
+    --muted-foreground: 140 135 150;/* Muted lavender-gray */
+
+    --accent: 46 37 58;             /* Warm violet/lavender highlight #2E253A */
+    --accent-foreground: 167 139 250;
+
+    --border: 50 43 61;             /* Subtle warm border #322B3D */
+    --input: 50 43 61;
+
+    --ring: 167 139 250;
+
+    --radial-glow: rgba(167, 139, 250, 0.06); /* Glowing lavender radial glow */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased cursor-default transition-colors duration-300;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Typography defaults */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-fluid-display;
+  }
+
+  h2 {
+    @apply text-fluid-2xl;
+  }
+
+  h3 {
+    @apply text-fluid-xl;
+  }
+
+  h4 {
+    @apply text-fluid-lg;
+  }
+
+  h5 {
+    @apply text-fluid-base;
+  }
+
+  h6 {
+    @apply text-fluid-xs;
+  }
+
+  p {
+    @apply text-body leading-relaxed;
+  }
+
+  /* Focus styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Selection styles */
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  /* Scrollbar styles */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+
+  /* Prevent image copying and dragging */
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: auto;
+  }
+}
+
+@layer components {
+
+  /* Container */
+  .container-custom {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-8xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section spacing */
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  .section-padding-sm {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* Card styles */
+  .card {
+    @apply rounded-2xl bg-card p-6 shadow-soft transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:shadow-soft-lg hover:-translate-y-1;
+  }
+
+  /* Button base styles */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply btn bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent hover:bg-accent hover:text-accent-foreground;
+  }
+
+  /* Link styles */
+  .link {
+    @apply text-foreground underline-offset-4 hover:underline;
+  }
+
+  .link-muted {
+    @apply text-muted-foreground hover:text-foreground;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary text-primary-foreground;
+  }
+
+  .badge-secondary {
+    @apply badge bg-secondary text-secondary-foreground;
+  }
+
+  .badge-outline {
+    @apply badge border border-border bg-transparent;
+  }
+
+  /* Prose overrides for MDX */
+  .prose-custom {
+    @apply prose prose-invert max-w-none;
+    @apply prose-headings:font-heading prose-headings:font-semibold;
+    @apply prose-a:text-primary prose-a:no-underline hover:prose-a:underline;
+    @apply prose-img:rounded-xl;
+    @apply prose-pre:bg-muted prose-pre:border prose-pre:border-border;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-background/80 backdrop-blur-md;
+  }
+
+  .glass-dark {
+    @apply bg-dark/80 backdrop-blur-md;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent;
+  }
+
+  /* Skeleton loading */
+  .skeleton {
+    @apply animate-pulse rounded-md bg-muted;
+  }
+
+  /* Divider */
+  .divider {
+    @apply h-px w-full bg-border;
+  }
+
+  /* Grid patterns */
+  .grid-pattern {
+    background-image:
+      linear-gradient(to right, rgb(var(--border)) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--border)) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Minimal Leaflet styles used by the contact map */
+  .leaflet-container {
+    height: 100%;
+    width: 100%;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: rgb(var(--muted));
+    font: inherit;
+  }
+
+  .leaflet-pane,
+  .leaflet-tile,
+  .leaflet-marker-icon,
+  .leaflet-marker-shadow,
+  .leaflet-tile-container,
+  .leaflet-pane > svg,
+  .leaflet-pane > canvas,
+  .leaflet-zoom-box,
+  .leaflet-image-layer,
+  .leaflet-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .leaflet-pane {
+    z-index: 400;
+  }
+
+  .leaflet-tile-pane {
+    z-index: 200;
+  }
+
+  .leaflet-overlay-pane {
+    z-index: 400;
+  }
+
+  .leaflet-shadow-pane {
+    z-index: 500;
+  }
+
+  .leaflet-marker-pane {
+    z-index: 600;
+  }
+
+  .leaflet-popup-pane {
+    z-index: 700;
+  }
+
+  .leaflet-control {
+    position: relative;
+    z-index: 800;
+    pointer-events: auto;
+  }
+
+  .leaflet-top,
+  .leaflet-bottom {
+    position: absolute;
+    z-index: 900;
+    pointer-events: none;
+  }
+
+  .leaflet-top {
+    top: 0;
+  }
+
+  .leaflet-right {
+    right: 0;
+  }
+
+  .leaflet-bottom {
+    bottom: 0;
+  }
+
+  .leaflet-left {
+    left: 0;
+  }
+
+  .leaflet-control-zoom {
+    margin: 1rem;
+    border: 1px solid rgb(var(--border) / 0.5);
+    border-radius: 0.875rem;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);
+    backdrop-filter: blur(12px);
+  }
+
+  .leaflet-control-zoom a {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: rgb(var(--background) / 0.92);
+    color: rgb(var(--foreground));
+    text-decoration: none;
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
+  .leaflet-control-zoom a + a {
+    border-top: 1px solid rgb(var(--border) / 0.5);
+  }
+
+  .leaflet-control-attribution {
+    margin: 0 0.75rem 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    background: rgb(var(--background) / 0.82);
+    color: rgb(var(--muted-foreground));
+    font-size: 0.6875rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .leaflet-control-attribution a {
+    color: inherit;
+  }
+
+  .leaflet-popup-content-wrapper,
+  .leaflet-popup-tip {
+    background: rgb(var(--background));
+    color: rgb(var(--foreground));
+    box-shadow: 0 18px 40px rgb(0 0 0 / 0.16);
+  }
+
+  .leaflet-popup-content {
+    margin: 0.75rem 0.875rem;
+  }
+}
+
+@layer utilities {
+
+  /* Text balance for better line breaking */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Aspect ratios */
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+
+  .aspect-photo {
+    aspect-ratio: 4 / 3;
+  }
+
+  .aspect-portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Safe area padding for mobile */
+  .safe-area-inset {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}
+
+/* Leaflet map styles */
+.leaflet-container {
+  @apply h-full w-full rounded-xl;
+  z-index: 0 !important;
+}
+
+.leaflet-pane {
+  z-index: 0 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 10 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  @apply rounded-lg shadow-soft;
+}
+
+.dark .leaflet-tile {
+  filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+}
+
+/* Remove default leaflet styling issues */
+.leaflet-control-attribution {
+  @apply text-xs opacity-60;
+}
+
+/* Custom premium effects */
+.gold-draw-svg rect {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  transition: stroke-dashoffset 0.6s ease-in-out;
+}
+.group:hover .gold-draw-svg rect {
+  stroke-dashoffset: 0;
+}
+
+/* Theme Grid Overlay */
+.theme-grid-overlay {
+  @apply pointer-events-none absolute inset-0 opacity-[0.06] dark:opacity-[0.03] bg-[linear-gradient(to_right,rgba(0,0,0,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.1)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:60px_60px];
+}

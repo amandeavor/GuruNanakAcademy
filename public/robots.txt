@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Host
+Host: https://www.gurunanakacademydehradun.org
+
+# Sitemaps
+Sitemap: https://www.gurunanakacademydehradun.org/sitemap.xml
