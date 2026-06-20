@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     description: 'Apply for admission online. Fill out the form to start your journey with us.',
     url: '/admission/form',
   },
+  alternates: {
+    canonical: '/admission/form',
+  },
 };
 
 export default function AdmissionFormPage() {

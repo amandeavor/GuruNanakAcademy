@@ -94,9 +94,6 @@ export const metadata: Metadata = {
     apple: '/images/logo.png',
   },
   manifest: '/site.webmanifest',
-  alternates: {
-    canonical: 'https://www.gurunanakacademydehradun.org',
-  },
 };
 
 export const viewport: Viewport = {

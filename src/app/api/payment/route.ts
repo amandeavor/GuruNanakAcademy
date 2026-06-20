@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
 
     const data = validationResult.data;
 
+    // Verify CAPTCHA
     const captcha = await verifyTurnstileToken(data.turnstileToken);
     if (!captcha.success) {
       return NextResponse.json(
@@ -39,22 +40,75 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('Fee Payment Submission:', {
-      studentName: data.studentName,
-      admissionId: data.admissionId,
-      gradeClass: data.gradeClass,
-      feeType: data.feeType,
-      amount: data.amount,
-      parentName: data.parentName,
-      email: data.email,
-      phone: data.phone,
-      timestamp: new Date().toISOString(),
+    const keyId = process.env.RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
+    const isMockMode =
+      !keyId ||
+      !keySecret ||
+      keyId === 'rzp_test_yourKeyId' ||
+      keySecret === 'yourKeySecret';
+
+    const amountInPaise = Math.round(parseFloat(data.amount) * 100);
+
+    if (isMockMode) {
+      console.warn('[Razorpay] Warning: Credentials missing or template defaults used. Operating in Mock Mode.');
+
+      const mockOrderId = `order_mock_${Math.floor(100000 + Math.random() * 900000)}`;
+      return NextResponse.json({
+        success: true,
+        orderId: mockOrderId,
+        amount: amountInPaise,
+        currency: 'INR',
+        keyId: 'mock_key_id',
+        mockMode: true,
+        message: 'Mock order created successfully.'
+      });
+    }
+
+    // Call Razorpay API to create an order
+    const authHeader = `Basic ${Buffer.from(`${keyId}:${keySecret}`).toString('base64')}`;
+
+    const razorpayResponse = await fetch('https://api.razorpay.com/v1/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': authHeader,
+      },
+      body: JSON.stringify({
+        amount: amountInPaise,
+        currency: 'INR',
+        receipt: `rcpt_${data.admissionId}_${Date.now()}`,
+        notes: {
+          studentName: data.studentName,
+          admissionId: data.admissionId,
+          feeType: data.feeType,
+          parentName: data.parentName,
+          email: data.email,
+          phone: data.phone,
+        }
+      }),
     });
 
-    return NextResponse.json(
-      { success: true, message: 'Payment details received. Proceed to gateway.' },
-      { status: 200 }
-    );
+    if (!razorpayResponse.ok) {
+      const errorText = await razorpayResponse.text();
+      console.error('[Razorpay] Order creation failed:', errorText);
+      return NextResponse.json(
+        { success: false, error: 'Razorpay order creation failed.' },
+        { status: 502 }
+      );
+    }
+
+    const order = await razorpayResponse.json();
+
+    return NextResponse.json({
+      success: true,
+      orderId: order.id,
+      amount: order.amount,
+      currency: order.currency,
+      keyId: keyId,
+      mockMode: false,
+    });
   } catch (error) {
     console.error('Payment API error:', error);
     return NextResponse.json(

@@ -1,29 +1,35 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { GraduationCap, Phone, Mail, MapPin, Instagram, Facebook, ArrowRight } from 'lucide-react';
 import { SCHOOL_INFO, QUICK_LINKS } from '@/lib/constants';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
 
   return (
     <footer className="border-t border-purple-200/30 dark:border-border/20 bg-purple-50/40 dark:bg-zinc-950 transition-colors duration-300">
 
       {/* CTA Band */}
-      <div className="border-b border-purple-200/30 dark:border-white/5 bg-forest/[0.04] dark:bg-forest/[0.15]">
-        <div className="container-custom flex flex-col items-center justify-between gap-4 py-8 text-center sm:flex-row sm:text-left md:py-10">
-          <div>
-            <p className="text-lg font-semibold text-foreground">Ready to be part of our legacy?</p>
-            <p className="mt-1 text-sm text-muted-foreground">Admissions open for the 2026–27 academic year.</p>
+      {pathname !== '/admission/form' && (
+        <div className="border-b border-purple-200/30 dark:border-white/5 bg-forest/[0.04] dark:bg-purple-950/30">
+          <div className="container-custom flex flex-col items-center justify-between gap-4 py-8 text-center sm:flex-row sm:text-left md:py-10">
+            <div>
+              <p className="text-lg font-semibold text-foreground">Ready to be part of our legacy?</p>
+              <p className="mt-1 text-sm text-muted-foreground">Admissions open for the 2026–27 academic year.</p>
+            </div>
+            <Link
+              href="/admission/form"
+              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold transition-all hover:opacity-90 shadow-md"
+            >
+              Apply for Admission
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
-          <Link
-            href="/admission/form"
-            className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold transition-all hover:opacity-90 shadow-md"
-          >
-            Apply for Admission
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
         </div>
-      </div>
+      )}
 
       {/* Main Footer Content */}
       <div className="container-custom py-8 md:py-12 lg:py-16">

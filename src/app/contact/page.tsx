@@ -6,11 +6,14 @@ import { DeferredMap } from '@/components/shared/deferred-map';
 
 export const metadata: Metadata = {
   title: 'Contact Us',
-  description: `Get in touch with ${SCHOOL_INFO.name}. Find our address, phone numbers, email, and use our contact form for inquiries.`,
+  description: `Get in touch with Guru Nanak Academy in Dehradun. Find our address, phone numbers, email, and contact form for admissions and inquiries.`,
   openGraph: {
     title: `Contact Us | ${SCHOOL_INFO.name}`,
     description: 'Reach out to us for admissions, general inquiries, or any other questions.',
     url: '/contact',
+  },
+  alternates: {
+    canonical: '/contact',
   },
 };
 

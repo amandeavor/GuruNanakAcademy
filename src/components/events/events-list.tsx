@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import Link from 'next/link';
 import { useState } from 'react';
 import { SAMPLE_EVENTS } from '@/lib/constants';
@@ -61,13 +61,7 @@ export function EventsList() {
                 )}
               >
                 <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={event.image}
-                    alt={event.title}
-                    fill
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.01]"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
+                  <PremiumGradientPlaceholder icon={Calendar} />
                   <Badge
                     variant="secondary"
                     className="absolute left-4 top-4 border-0 bg-black/40 text-white backdrop-blur-md"

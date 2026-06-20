@@ -29,41 +29,63 @@ export interface BlogPostMeta {
   featured?: boolean;
 }
 
+// In-memory cache variables to optimize file system hits
+let cachedPostMetaList: BlogPostMeta[] | null = null;
+const cachedPostsBySlug = new Map<string, BlogPost | null>();
+let cachedSlugs: string[] | null = null;
+
+const isDev = process.env.NODE_ENV === 'development';
+
+// Helper to check if cache should be bypassed during development
+const shouldBypassCache = () => isDev;
+
 /**
- * Get all blog post slugs
+ * Get all blog post slugs (with caching)
  */
 export function getAllPostSlugs(): string[] {
+  if (!shouldBypassCache() && cachedSlugs) {
+    return cachedSlugs;
+  }
+
   try {
     const files = fs.readdirSync(BLOG_DIR);
-    return files
+    const slugs = files
       .filter((file) => file.endsWith('.mdx') || file.endsWith('.md'))
       .map((file) => file.replace(/\.mdx?$/, ''));
+
+    cachedSlugs = slugs;
+    return slugs;
   } catch {
     return [];
   }
 }
 
 /**
- * Get a single blog post by slug
+ * Get a single blog post by slug (with caching)
  */
 export function getPostBySlugSync(slug: string): BlogPost | null {
+  if (!shouldBypassCache() && cachedPostsBySlug.has(slug)) {
+    return cachedPostsBySlug.get(slug) || null;
+  }
+
   try {
     const mdxPath = path.join(BLOG_DIR, `${slug}.mdx`);
     const mdPath = path.join(BLOG_DIR, `${slug}.md`);
-    
+
     let filePath = '';
     if (fs.existsSync(mdxPath)) {
       filePath = mdxPath;
     } else if (fs.existsSync(mdPath)) {
       filePath = mdPath;
     } else {
+      cachedPostsBySlug.set(slug, null);
       return null;
     }
 
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    return {
+    const post: BlogPost = {
       slug,
       title: data.title || 'Untitled',
       date: data.date || new Date().toISOString(),
@@ -75,7 +97,11 @@ export function getPostBySlugSync(slug: string): BlogPost | null {
       featured: data.featured || false,
       content,
     };
+
+    cachedPostsBySlug.set(slug, post);
+    return post;
   } catch {
+    cachedPostsBySlug.set(slug, null);
     return null;
   }
 }
@@ -88,9 +114,13 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
 }
 
 /**
- * Get all blog posts metadata (without content)
+ * Get all blog posts metadata (without content, with caching)
  */
 export function getAllPostsMeta(): BlogPostMeta[] {
+  if (!shouldBypassCache() && cachedPostMetaList) {
+    return cachedPostMetaList;
+  }
+
   const slugs = getAllPostSlugs();
   const posts = slugs
     .map((slug) => {
@@ -103,6 +133,7 @@ export function getAllPostsMeta(): BlogPostMeta[] {
     .filter((post): post is BlogPostMeta => post !== null)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+  cachedPostMetaList = posts;
   return posts;
 }
 

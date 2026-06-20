@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -40,13 +40,7 @@ export function AboutSummary() {
               className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:rounded-3xl"
               style={{ y: imageY }}
             >
-              <Image
-                src="/images/about.png"
-                alt="Guru Nanak Academy campus building"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              <PremiumGradientPlaceholder />
               <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
             </motion.div>
 

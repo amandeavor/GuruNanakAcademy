@@ -1,6 +1,7 @@
 'use client';
 
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
+import { User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { LEADERSHIP } from '@/lib/constants';
 import { cn } from '@/lib/utils';
@@ -83,13 +84,7 @@ export function LeadershipSection() {
                   {/* Image */}
                   <div className="w-full shrink-0 md:w-2/5 flex justify-center">
                     <div className="relative h-64 w-64 md:h-72 md:w-72 lg:h-80 lg:w-80 overflow-hidden rounded-full border-4 border-forest/10 bg-muted shadow-lg">
-                      <Image
-                        src={leader.image}
-                        alt={leader.name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 40vw"
-                      />
+                      <PremiumGradientPlaceholder icon={User} />
                     </div>
                   </div>
 

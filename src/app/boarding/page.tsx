@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import Link from 'next/link';
-import { ArrowRight, Check, Clock, Users, Shield, Heart } from 'lucide-react';
+import { ArrowRight, Check, Clock, Users, Shield, Heart, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SCHOOL_INFO } from '@/lib/constants';
 
@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     title: `Boarding Facilities | ${SCHOOL_INFO.name}`,
     description: 'Discover our boarding and day-boarding facilities designed for holistic student development.',
     url: '/boarding',
+  },
+  alternates: {
+    canonical: '/boarding',
   },
 };
 
@@ -138,32 +141,14 @@ export default function BoardingPage() {
             {/* Images */}
             <div className="grid gap-4">
               <div className="relative aspect-video overflow-hidden rounded-2xl">
-                <Image
-                  src="/images/hero-bg.png"
-                  alt="Boarding house exterior"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
+                <PremiumGradientPlaceholder icon={Home} />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative aspect-square overflow-hidden rounded-xl">
-                  <Image
-                    src="/images/library1.png"
-                    alt="Hostel bedroom"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 50vw, 25vw"
-                  />
+                  <PremiumGradientPlaceholder icon={Home} />
                 </div>
                 <div className="relative aspect-square overflow-hidden rounded-xl">
-                  <Image
-                    src="/images/library2.png"
-                    alt="Dining area"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 50vw, 25vw"
-                  />
+                  <PremiumGradientPlaceholder icon={Heart} />
                 </div>
               </div>
             </div>
@@ -263,13 +248,7 @@ export default function BoardingPage() {
             {/* Images */}
             <div className="order-1 lg:order-2">
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                <Image
-                  src="/images/about.png"
-                  alt="Day-boarding facility"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
+                <PremiumGradientPlaceholder icon={Home} />
               </div>
             </div>
           </div>

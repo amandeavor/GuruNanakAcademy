@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import Link from 'next/link';
 import { SCHOOL_INFO } from '@/lib/constants';
 import { getAllPosts } from '@/lib/mdx';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, User, ArrowRight } from 'lucide-react';
+import { Calendar, User, ArrowRight, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     title: `Blog | ${SCHOOL_INFO.name}`,
     description: 'Latest news, updates, and insights from our school community.',
     url: '/blog',
+  },
+  alternates: {
+    canonical: '/blog',
   },
 };
 
@@ -81,13 +84,7 @@ export default async function BlogPage() {
                   >
                     <Link href={`/blog/${post.slug}`} className="block">
                       <div className="relative aspect-[4/3] overflow-hidden">
-                        <Image
-                          src={post.image || '/images/about.png'}
-                          alt={post.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        />
+                        <PremiumGradientPlaceholder icon={BookOpen} />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         {post.category && (
                           <Badge

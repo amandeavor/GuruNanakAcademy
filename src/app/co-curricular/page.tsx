@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import Link from 'next/link';
 import { SCHOOL_INFO } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     title: `Co-Curricular Activities | ${SCHOOL_INFO.name}`,
     description: 'Explore our diverse range of co-curricular activities for holistic student development.',
     url: '/co-curricular',
+  },
+  alternates: {
+    canonical: '/co-curricular',
   },
 };
 
@@ -131,13 +134,7 @@ export default function CoCurricularPage() {
                     {/* Image */}
                     <div className={isReversed ? 'lg:order-2' : ''}>
                       <div className="relative aspect-video overflow-hidden rounded-2xl">
-                        <Image
-                          src={activity.image}
-                          alt={activity.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                        />
+                        <PremiumGradientPlaceholder icon={Icon} />
                       </div>
                     </div>
 
@@ -195,13 +192,7 @@ export default function CoCurricularPage() {
                 className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-md transition-all duration-300 hover:shadow-xl"
               >
                 <div className="relative aspect-[4/3]">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover transition-opacity duration-300 group-hover:opacity-90"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
+                  <PremiumGradientPlaceholder icon={Camera} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
                   <div className="absolute inset-0 flex items-end p-4">
                     <p className="text-sm font-semibold text-white tracking-wide">

@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     description: 'Secure online school fee payment portal with UPI and card options.',
     url: '/pay-fee',
   },
+  alternates: {
+    canonical: '/pay-fee',
+  },
 };
 
 export default function PayFeePage() {

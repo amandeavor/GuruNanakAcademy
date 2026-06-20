@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -102,13 +102,7 @@ export function EventsSection() {
                 )}
               >
                 <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={event.image || '/images/about.png'}
-                    alt={event.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
+                  <PremiumGradientPlaceholder icon={Calendar} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                   <div className="absolute left-4 top-4">
                     <Badge variant="secondary" className="border-0 bg-black/40 text-white backdrop-blur-md text-xs">

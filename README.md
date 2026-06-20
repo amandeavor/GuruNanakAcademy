@@ -15,12 +15,12 @@ This is the official website for Guru Nanak Academy, Dehradun. The website showc
 
 - **Modern Design**: Clean, responsive design with dark mode support
 - **Fast Performance**: Built with Next.js App Router for optimal performance
-- **SEO Optimized**: Full SEO support with proper metadata and OpenGraph tags
+- **SEO Optimized**: Full SEO support with proper metadata, dynamic sitemaps, and relative canonical configurations to avoid duplicate indexing
 - **Accessible**: WCAG compliant with proper ARIA labels and keyboard navigation
-- **Interactive Maps**: Leaflet.js integration for campus location
-- **Blog System**: MDX-powered blog for news and updates
-- **Form Handling**: Contact and admission forms with validation
-- **Image Optimization**: Next.js Image component for optimized loading
+- **Interactive Maps**: Google Maps integration with custom CSS filters to automatically match the dark theme
+- **Blog System**: MDX-powered blog for news and updates with in-memory caching
+- **Form Handling**: Contact and admission forms with validation and Turnstile bot protection
+- **Secure Payment Gateway**: Razorpay integration with secure cryptographic signature verification (supports both sandbox and developer fallback Mock Mode)
 
 ## 🚀 Getting Started
 
@@ -115,14 +115,14 @@ guru-nanak-academy/
 ### Colors
 
 **Light Mode:**
-- Primary: Black (#000000)
-- Background: White (#FFFFFF)
-- Text: Dark gray scale
+- Primary: Royal Purple (#7C3AED)
+- Background: Soft Lavender Cream (#FAF6FB)
+- Text: Dark Eggplant (#2D2330)
 
 **Dark Mode:**
-- Background: #0b0b0b
-- Accents: White/Silver
-- Text: Light gray scale
+- Primary: Glowing Lavender (#A78BFA)
+- Background: Obsidian Black (#0B0B0B)
+- Text: Light Lavender Gray
 
 ### Typography
 

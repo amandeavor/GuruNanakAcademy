@@ -28,8 +28,8 @@ export const SCHOOL_INFO = {
     full: 'Raipur Road, Dehradun, Uttarakhand, India',
   },
   coordinates: {
-    lat: 30.32357128206072,
-    lng: 78.06699650792665,
+    lat: 30.3224965,
+    lng: 78.0672545,
   },
   phones: [
     { label: 'Office', number: '0135-2787235' },

@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     description: 'Complete guide to admission process, eligibility criteria, and subject choices.',
     url: '/admission',
   },
+  alternates: {
+    canonical: '/admission',
+  },
 };
 
 export default function AdmissionPage() {

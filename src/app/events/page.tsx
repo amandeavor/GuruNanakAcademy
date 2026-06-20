@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     description: 'Explore our school events, celebrations, and activities throughout the year.',
     url: '/events',
   },
+  alternates: {
+    canonical: '/events',
+  },
 };
 
 export default function EventsPage() {

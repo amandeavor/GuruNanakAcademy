@@ -34,6 +34,24 @@ const FeePaymentSchema = z.object({
 
 type FeePaymentData = z.infer<typeof FeePaymentSchema>;
 
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if ((window as any).Razorpay) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => {
+      resolve(true);
+    };
+    script.onerror = () => {
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+};
+
 export function FeePortalForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [turnstileKeyCounter, setTurnstileKeyCounter] = useState(0); // To reset widget on error/expire
@@ -87,42 +105,178 @@ export function FeePortalForm() {
       });
 
       const result = await response.json();
-      if (response.ok) {
-        // Generate mock transaction receipt details
-        const randId = "TXN-" + Math.floor(100000 + Math.random() * 900000);
-        const currentDate = new Date().toLocaleDateString("en-IN", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit"
-        });
-
-        setPaymentStatus({
-          type: "success",
-          message: "Payment transaction completed successfully!",
-          receipt: {
-            transactionId: randId,
-            date: currentDate,
-            studentName: data.studentName,
-            admissionId: data.admissionId,
-            gradeClass: data.gradeClass,
-            feeType: data.feeType,
-            amount: data.amount,
-            parentName: data.parentName,
-            email: data.email,
-            phone: data.phone,
-          }
-        });
-      } else {
+      if (!response.ok) {
         setPaymentStatus({
           type: "error",
-          message: result.message || "There was an error verifying the transaction. Please try again.",
+          message: result.error || "There was an error creating the payment session. Please try again.",
         });
-        // Reset Captcha token on failure so the user must re-verify
         setValue("turnstileToken", "");
         setTurnstileKeyCounter(prev => prev + 1);
+        setIsSubmitting(false);
+        return;
       }
+
+      if (result.mockMode) {
+        console.log("Mock Mode Enabled: Simulating client-side payment verification.");
+        setTimeout(async () => {
+          try {
+            const verifyRes = await fetch("/api/payment/verify", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_payment_id: `pay_mock_${Math.floor(100000 + Math.random() * 900000)}`,
+                razorpay_order_id: result.orderId,
+                razorpay_signature: "mock_signature_data",
+              }),
+            });
+
+            const verifyResult = await verifyRes.json();
+            if (verifyRes.ok && verifyResult.success) {
+              const currentDate = new Date().toLocaleDateString("en-IN", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              });
+
+              setPaymentStatus({
+                type: "success",
+                message: "Payment transaction completed successfully (Test Mock Mode)!",
+                receipt: {
+                  transactionId: verifyResult.transactionId,
+                  date: currentDate,
+                  studentName: data.studentName,
+                  admissionId: data.admissionId,
+                  gradeClass: data.gradeClass,
+                  feeType: data.feeType,
+                  amount: data.amount,
+                  parentName: data.parentName,
+                  email: data.email,
+                  phone: data.phone,
+                }
+              });
+            } else {
+              setPaymentStatus({
+                type: "error",
+                message: verifyResult.error || "Mock payment verification failed.",
+              });
+              setValue("turnstileToken", "");
+              setTurnstileKeyCounter(prev => prev + 1);
+            }
+          } catch (err) {
+            setPaymentStatus({
+              type: "error",
+              message: "An error occurred verifying mock payment transaction details.",
+            });
+            setValue("turnstileToken", "");
+            setTurnstileKeyCounter(prev => prev + 1);
+          } finally {
+            setIsSubmitting(false);
+          }
+        }, 1500);
+        return;
+      }
+
+      // Live/Test Razorpay Checkout Mode
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        setPaymentStatus({
+          type: "error",
+          message: "Failed to load Razorpay Payment Gateway SDK script. Please try again.",
+        });
+        setValue("turnstileToken", "");
+        setTurnstileKeyCounter(prev => prev + 1);
+        setIsSubmitting(false);
+        return;
+      }
+
+      const options = {
+        key: result.keyId,
+        amount: result.amount,
+        currency: result.currency,
+        name: "Guru Nanak Academy",
+        description: `Fee Payment - ${data.feeType}`,
+        order_id: result.orderId,
+        handler: async (paymentResponse: any) => {
+          setIsSubmitting(true);
+          try {
+            const verifyRes = await fetch("/api/payment/verify", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                razorpay_order_id: paymentResponse.razorpay_order_id,
+                razorpay_signature: paymentResponse.razorpay_signature,
+              }),
+            });
+
+            const verifyResult = await verifyRes.json();
+            if (verifyRes.ok && verifyResult.success) {
+              const currentDate = new Date().toLocaleDateString("en-IN", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              });
+
+              setPaymentStatus({
+                type: "success",
+                message: "Payment transaction completed successfully!",
+                receipt: {
+                  transactionId: paymentResponse.razorpay_payment_id,
+                  date: currentDate,
+                  studentName: data.studentName,
+                  admissionId: data.admissionId,
+                  gradeClass: data.gradeClass,
+                  feeType: data.feeType,
+                  amount: data.amount,
+                  parentName: data.parentName,
+                  email: data.email,
+                  phone: data.phone,
+                }
+              });
+            } else {
+              setPaymentStatus({
+                type: "error",
+                message: verifyResult.error || "Payment verification failed. Please contact support.",
+              });
+              setValue("turnstileToken", "");
+              setTurnstileKeyCounter(prev => prev + 1);
+            }
+          } catch (err) {
+            setPaymentStatus({
+              type: "error",
+              message: "An error occurred verifying payment transaction signature.",
+            });
+            setValue("turnstileToken", "");
+            setTurnstileKeyCounter(prev => prev + 1);
+          } finally {
+            setIsSubmitting(false);
+          }
+        },
+        prefill: {
+          name: data.studentName,
+          email: data.email,
+          contact: data.phone,
+        },
+        theme: {
+          color: "#7C3AED",
+        },
+        modal: {
+          ondismiss: () => {
+            setIsSubmitting(false);
+          }
+        }
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
     } catch (error) {
       setPaymentStatus({
         type: "error",
@@ -130,7 +284,6 @@ export function FeePortalForm() {
       });
       setValue("turnstileToken", "");
       setTurnstileKeyCounter(prev => prev + 1);
-    } finally {
       setIsSubmitting(false);
     }
   };

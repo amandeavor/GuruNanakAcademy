@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SAMPLE_EVENTS, SCHOOL_INFO } from '@/lib/constants';
@@ -35,6 +35,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: event.excerpt,
       url: `/events/${event.slug}`,
       images: [event.image],
+    },
+    alternates: {
+      canonical: `/events/${event.slug}`,
     },
   };
 }
@@ -97,14 +100,7 @@ export default async function EventDetailPage({ params }: Props) {
         <div className="container-custom -mt-0 md:-mt-4">
           <div className="mx-auto max-w-4xl">
             <div className="relative aspect-video overflow-hidden rounded-2xl">
-              <Image
-                src={event.image}
-                alt={event.title}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 900px"
-              />
+              <PremiumGradientPlaceholder icon={Calendar} />
             </div>
           </div>
         </div>
@@ -161,13 +157,7 @@ export default async function EventDetailPage({ params }: Props) {
                   className="group overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-lg"
                 >
                   <div className="relative aspect-video overflow-hidden">
-                    <Image
-                      src={relatedEvent.image}
-                      alt={relatedEvent.title}
-                      fill
-                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.01]"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
+                    <PremiumGradientPlaceholder icon={Calendar} />
                   </div>
                   <div className="p-6">
                     <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">

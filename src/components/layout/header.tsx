@@ -158,7 +158,7 @@ export function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="overflow-hidden border-t border-border bg-background lg:hidden"
+            className="overflow-y-auto max-h-[calc(100vh-4rem)] md:max-h-[calc(100vh-5rem)] border-t border-border bg-background lg:hidden"
           >
             <div className="container-custom py-4">
               <div className="flex flex-col gap-1">

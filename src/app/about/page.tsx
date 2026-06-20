@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import { Timeline } from '@/components/about/timeline';
 import { LeadershipSection } from '@/components/about/leadership-section';
 import { AboutContent } from '@/components/about/about-content';
@@ -10,11 +10,14 @@ import { SCHOOL_INFO } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'About Us',
-  description: `Learn about ${SCHOOL_INFO.name}, one of the finest co-educational boarding and day-boarding Schools in Dehradun, founded in ${SCHOOL_INFO.founded}. Discover our mission, values, and leadership.`,
+  description: `Discover Guru Nanak Academy, a premier co-educational boarding and day-boarding CISCE school in Dehradun, offering excellence in education since 1972.`,
   openGraph: {
     title: `About Us | ${SCHOOL_INFO.name}`,
     description: `Learn about our ${SCHOOL_INFO.campusSize} campus, mission, and leadership team.`,
     url: '/about',
+  },
+  alternates: {
+    canonical: '/about',
   },
 };
 
@@ -56,14 +59,7 @@ export default function AboutPage() {
             <div className="relative">
               <div className="sticky top-24">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                  <Image
-                    src="/images/about.png"
-                    alt="Guru Nanak Academy campus"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
-                  />
+                  <PremiumGradientPlaceholder />
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import { LABS, SCHOOL_INFO } from '@/lib/constants';
-import { Check } from 'lucide-react';
+import { Check, BookOpen, Trophy, Activity } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Facilities',
@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     title: `Facilities | ${SCHOOL_INFO.name}`,
     description: 'State-of-the-art facilities including Physics, Chemistry, Biology, and Computer labs.',
     url: '/facilities',
+  },
+  alternates: {
+    canonical: '/facilities',
   },
 };
 
@@ -75,13 +78,7 @@ export default function FacilitiesPage() {
                     {/* Image */}
                     <div className={isReversed ? 'lg:order-2' : ''}>
                       <div className="relative aspect-video overflow-hidden rounded-2xl">
-                        <Image
-                          src={lab.image}
-                          alt={lab.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                        />
+                        <PremiumGradientPlaceholder icon={Icon} />
                       </div>
                     </div>
 
@@ -149,13 +146,7 @@ export default function FacilitiesPage() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             {/* Image */}
             <div className="relative aspect-video overflow-hidden rounded-2xl lg:aspect-[4/3]">
-              <Image
-                src="/images/library1.png"
-                alt="School library"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <PremiumGradientPlaceholder icon={BookOpen} />
             </div>
 
             {/* Content */}
@@ -259,13 +250,7 @@ export default function FacilitiesPage() {
                   className={`group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:shadow-lg ${borderHover}`}
                 >
                   <div className="relative aspect-video overflow-hidden">
-                    <Image
-                      src={facility.image}
-                      alt={facility.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+                    <PremiumGradientPlaceholder icon={facility.title === 'Gymnasium' ? Activity : Trophy} />
                   </div>
                   <div className="p-6">
                     <h3 className="mb-2 text-lg font-semibold text-foreground">
@@ -329,13 +314,7 @@ export default function FacilitiesPage() {
             </div>
 
             <div className="relative aspect-video overflow-hidden rounded-2xl">
-              <Image
-                src="/images/library2.png"
-                alt="Smart classroom"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <PremiumGradientPlaceholder icon={BookOpen} />
             </div>
           </div>
         </div>

@@ -31,32 +31,55 @@ export function TurnstileShield({ onChallengeSuccess, onChallengeExpire }: Turns
   const { resolvedTheme } = useTheme();
 
   useEffect(() => {
-    const scriptTag = document.createElement("script");
-    scriptTag.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-    scriptTag.async = true;
-    scriptTag.defer = true;
-    document.head.appendChild(scriptTag);
+    let scriptTag = document.getElementById("cloudflare-turnstile") as HTMLScriptElement;
+    let localWidgetId: string | null = null;
 
     const mountTurnstile = () => {
-      if (window.turnstile && targetContainerRef.current && !widgetId) {
-        const id = window.turnstile.render(targetContainerRef.current, {
-          sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA", // Mock Turnstile key
-          callback: onChallengeSuccess,
-          "expired-callback": onChallengeExpire,
-          theme: resolvedTheme === "dark" ? "dark" : "light",
-        });
-        setWidgetId(id);
+      if (window.turnstile && targetContainerRef.current && !localWidgetId) {
+        try {
+          const id = window.turnstile.render(targetContainerRef.current, {
+            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA", // Mock Turnstile key
+            callback: onChallengeSuccess,
+            "expired-callback": onChallengeExpire,
+            theme: resolvedTheme === "dark" ? "dark" : "light",
+          });
+          localWidgetId = id;
+          setWidgetId(id);
+        } catch (e) {
+          console.error("Error rendering Turnstile widget:", e);
+        }
       }
     };
 
-    scriptTag.onload = mountTurnstile;
+    if (!scriptTag) {
+      scriptTag = document.createElement("script");
+      scriptTag.id = "cloudflare-turnstile";
+      scriptTag.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      scriptTag.async = true;
+      scriptTag.defer = true;
+      document.head.appendChild(scriptTag);
+      scriptTag.onload = mountTurnstile;
+    } else {
+      if (window.turnstile) {
+        mountTurnstile();
+      } else {
+        scriptTag.addEventListener("load", mountTurnstile);
+      }
+    }
 
     return () => {
-      if (document.head.contains(scriptTag)) {
-        document.head.removeChild(scriptTag);
+      if (scriptTag) {
+        scriptTag.removeEventListener("load", mountTurnstile);
+      }
+      if (window.turnstile && localWidgetId) {
+        try {
+          window.turnstile.remove(localWidgetId);
+        } catch (e) {
+          // Ignore removal errors on unmount
+        }
       }
     };
-  }, [onChallengeSuccess, onChallengeExpire, widgetId]);
+  }, [onChallengeSuccess, onChallengeExpire, resolvedTheme]);
 
   return (
     <div className="flex justify-center my-4">

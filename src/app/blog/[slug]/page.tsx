@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
+import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getPostBySlug } from '@/lib/mdx';
 import { SCHOOL_INFO } from '@/lib/constants';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
+import { Calendar, User, ArrowLeft, Share2, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 type Props = {
@@ -222,6 +222,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: post.author ? [post.author] : undefined,
       images: post.image ? [post.image] : undefined,
     },
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
   };
 }
 
@@ -293,22 +296,13 @@ export default async function BlogPostPage({ params }: Props) {
         </header>
 
         {/* Featured Image */}
-        {post.image && (
-          <div className="container-custom py-10 md:py-16">
-            <div className="mx-auto max-w-5xl">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-border">
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 900px"
-                />
-              </div>
+        <div className="container-custom py-10 md:py-16">
+          <div className="mx-auto max-w-5xl">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-border">
+              <PremiumGradientPlaceholder icon={BookOpen} />
             </div>
           </div>
-        )}
+        </div>
 
         {/* Content */}
         <div className="container-custom py-12 md:py-16">
@@ -359,13 +353,7 @@ export default async function BlogPostPage({ params }: Props) {
                   className="group flex flex-col sm:flex-row overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
                   <div className="relative aspect-video sm:aspect-square sm:w-48 flex-shrink-0 overflow-hidden">
-                    <Image
-                      src={relatedPost.image || '/images/about.png'}
-                      alt={relatedPost.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, 200px"
-                    />
+                    <PremiumGradientPlaceholder icon={BookOpen} />
                   </div>
                   <div className="flex flex-1 flex-col justify-center p-6">
                     <div className="mb-3 flex items-center gap-2 text-sm text-muted-foreground">
