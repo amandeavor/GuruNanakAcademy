@@ -234,6 +234,8 @@ function MarkdownParser({ content }: { content: string }) {
   return <>{elements}</>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post) => ({

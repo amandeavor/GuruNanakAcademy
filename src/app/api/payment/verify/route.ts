@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 
+export const runtime = 'edge';
+
 export async function POST(request: NextRequest) {
   try {
     const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = await request.json();
