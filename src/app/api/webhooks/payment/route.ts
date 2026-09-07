@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 
+export const runtime = 'edge';
+
 export async function POST(req: Request) {
   try {
     // 1. Read the raw text body to prevent verification mismatches

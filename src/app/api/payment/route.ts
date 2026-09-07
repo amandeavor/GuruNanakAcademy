@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { verifyTurnstileToken } from '@/lib/turnstile';
 
+export const runtime = 'edge';
+
 const feePaymentSchema = z.object({
   admissionId: z.string().min(3),
   studentName: z.string().min(2),

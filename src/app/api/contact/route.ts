@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { contactFormSchema } from '@/lib/validations';
 import { verifyTurnstileToken } from '@/lib/turnstile';
 
+export const runtime = 'edge';
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

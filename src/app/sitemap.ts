@@ -2,8 +2,7 @@ import { MetadataRoute } from 'next';
 import { SAMPLE_EVENTS } from '@/lib/constants';
 import { getAllPosts } from '@/lib/mdx';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 14400; // Recalculates paths dynamically every 4 hours (14400 seconds)
+export const revalidate = 14400;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const rootDomain = 'https://www.gurunanakacademydehradun.org';
