@@ -4,7 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
@@ -37,7 +37,7 @@ function ThemeToggle({
         className
       )}
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      aria-label="Toggle theme"
+      aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
     >
       {theme === 'dark' ? (
         <Sun className="h-[1.2rem] w-[1.2rem] transition-all" />
@@ -49,10 +49,11 @@ function ThemeToggle({
 }
 
 export function Header() {
+  const reducedMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme: theme, setTheme } = useTheme();
   const mounted = React.useSyncExternalStore(
     subscribeToHydration,
     getClientSnapshot,
@@ -129,7 +130,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                  'rounded-sm px-2.5 py-2 text-sm font-medium transition-colors',
                   pathname === link.href
                     ? 'bg-primary/10 text-primary'
                     : 'text-foreground/70 hover:bg-accent hover:text-foreground'
@@ -184,9 +185,9 @@ export function Header() {
         {isMobileMenuOpen && (
           <motion.div
             id="mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={reducedMotion ? false : { opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
             transition={{ duration: 0.2 }}
             className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-background md:max-h-[calc(100dvh-5rem)] xl:hidden"
           >
