@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
@@ -25,7 +25,7 @@ export function ContactMap() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="mt-2 text-heading-xl font-bold text-foreground md:text-display"
+            className="editorial-heading mt-2 text-foreground"
           >
             Visit Our Campus
           </motion.h2>
@@ -59,12 +59,7 @@ export function ContactMap() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex h-full flex-col lg:col-span-2"
           >
-            <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-purple-500/10 bg-card/60 p-6 pl-8 shadow-soft backdrop-blur-xl dark:border-white/5 dark:bg-zinc-900/40 dark:shadow-[0_0_50px_-12px_rgba(167,139,250,0.08)] md:p-8 md:pl-10">
-              {/* Decorative accent lines & radial glows */}
-              <div className="pointer-events-none absolute right-0 top-0 h-24 w-24 rounded-full bg-primary/10 blur-[40px]" />
-              <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-32 rounded-full bg-indigo-500/10 blur-[50px]" />
-              <div className="absolute bottom-8 left-0 top-8 w-1 rounded-r-lg bg-gradient-to-b from-primary via-indigo-500 to-transparent" />
-
+            <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-sm border border-border bg-card p-6 md:p-8">
               <div className="mb-6 md:mb-8">
                 <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
                   Get in Touch
@@ -77,7 +72,7 @@ export function ContactMap() {
               <div className="space-y-5 md:space-y-7">
                 {/* Location */}
                 <motion.div whileHover={{ x: 4 }} className="group/item flex gap-4">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-primary transition-all duration-300 group-hover/item:bg-primary group-hover/item:text-primary-foreground md:h-12 md:w-12">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover/item:bg-primary group-hover/item:text-primary-foreground md:h-12 md:w-12">
                     <MapPin className="h-6 w-6" aria-hidden="true" />
                   </div>
                   <div>
@@ -101,7 +96,7 @@ export function ContactMap() {
 
                 {/* Phone */}
                 <motion.div whileHover={{ x: 4 }} className="group/item flex gap-4">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-primary transition-all duration-300 group-hover/item:bg-primary group-hover/item:text-primary-foreground md:h-12 md:w-12">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover/item:bg-primary group-hover/item:text-primary-foreground md:h-12 md:w-12">
                     <Phone className="h-6 w-6" aria-hidden="true" />
                   </div>
                   <div>
@@ -127,7 +122,7 @@ export function ContactMap() {
 
                 {/* Email */}
                 <motion.div whileHover={{ x: 4 }} className="group/item flex gap-4">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-primary transition-all duration-300 group-hover/item:bg-primary group-hover/item:text-primary-foreground md:h-12 md:w-12">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover/item:bg-primary group-hover/item:text-primary-foreground md:h-12 md:w-12">
                     <Mail className="h-6 w-6" aria-hidden="true" />
                   </div>
                   <div>
@@ -153,7 +148,7 @@ export function ContactMap() {
 
                 {/* Office Hours */}
                 <motion.div whileHover={{ x: 4 }} className="group/item flex gap-4">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-primary transition-all duration-300 group-hover/item:bg-primary group-hover/item:text-primary-foreground md:h-12 md:w-12">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover/item:bg-primary group-hover/item:text-primary-foreground md:h-12 md:w-12">
                     <Clock className="h-6 w-6" aria-hidden="true" />
                   </div>
                   <div>

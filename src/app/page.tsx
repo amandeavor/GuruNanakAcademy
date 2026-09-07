@@ -17,10 +17,6 @@ const FacilitiesPreview = dynamic(
     })),
   { ssr: true }
 );
-const CampusIntro = dynamic(
-  () => import('@/components/home/campus-intro').then((mod) => ({ default: mod.CampusIntro })),
-  { ssr: true }
-);
 const EventsSection = dynamic(
   () => import('@/components/home/events-section').then((mod) => ({ default: mod.EventsSection })),
   { ssr: true }
@@ -44,10 +40,11 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <LabCards />
+
       <AboutSummary />
+      <LabCards />
       <FacilitiesPreview />
-      <CampusIntro />
+
       <EventsSection />
       <ContactMap />
     </>

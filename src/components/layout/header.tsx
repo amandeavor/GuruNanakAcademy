@@ -2,9 +2,10 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, GraduationCap, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS, SCHOOL_INFO } from '@/lib/constants';
@@ -68,6 +69,14 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  React.useEffect(() => {
+    const close = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+  }, []);
+
   // Prevent body scroll when mobile menu is open
   React.useEffect(() => {
     if (isMobileMenuOpen) {
@@ -86,8 +95,8 @@ export function Header() {
       className={cn(
         'fixed left-0 right-0 top-0 z-50 transition-all duration-300',
         isScrolled
-          ? 'border-b border-black/5 bg-white/70 shadow-2xl backdrop-blur-md dark:border-white/5 dark:bg-zinc-950/70'
-          : 'border-b border-transparent bg-transparent'
+          ? 'border-b border-border bg-background/95 backdrop-blur-md'
+          : 'border-b border-border/60 bg-background'
       )}
     >
       <nav className="container-custom" role="navigation" aria-label="Main navigation">
@@ -98,13 +107,15 @@ export function Header() {
             className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"
             aria-label={`${SCHOOL_INFO.name} - Home`}
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground xs:h-10 xs:w-10">
-              <GraduationCap className="h-5 w-5 xs:h-6 xs:w-6" aria-hidden="true" />
-            </div>
-            <div className="hidden xs:block">
-              <span className="block text-base font-bold leading-tight xs:text-lg">
-                {SCHOOL_INFO.shortName}
-              </span>
+            <Image
+              src="/images/logo.png"
+              alt=""
+              width={42}
+              height={42}
+              className="h-10 w-10 object-contain"
+            />
+            <div className="block">
+              <span className="block text-sm font-semibold leading-tight">{SCHOOL_INFO.name}</span>
               <span className="block text-xs text-muted-foreground">
                 Est. {SCHOOL_INFO.founded}
               </span>
@@ -112,7 +123,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex lg:items-center lg:gap-1">
+          <div className="hidden xl:flex xl:items-center xl:gap-0">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
@@ -142,7 +153,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             {/* Mobile Theme Toggle */}
             <ThemeToggle
-              className="h-10 w-10 lg:hidden"
+              className="h-10 w-10 xl:hidden"
               mounted={mounted}
               theme={theme}
               setTheme={setTheme}
@@ -152,7 +163,7 @@ export function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="h-10 w-10 lg:hidden"
+              className="h-10 w-10 xl:hidden"
               onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
@@ -177,7 +188,7 @@ export function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-border bg-background md:max-h-[calc(100vh-5rem)] lg:hidden"
+            className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-background md:max-h-[calc(100dvh-5rem)] xl:hidden"
           >
             <div className="container-custom py-4">
               <div className="flex flex-col gap-1">

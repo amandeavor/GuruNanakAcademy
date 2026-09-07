@@ -3,65 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Premium Purple Light Theme */
-    --background: 250 246 251; /* Soft cream background with a lavender tint #FAF6FB */
-    --foreground: 45 35 48; /* Dark warm charcoal/eggplant text #2D2330 */
-
-    --card: 255 255 255; /* White cards */
-    --card-foreground: 45 35 48;
-
-    --primary: 124 58 237; /* Royal Purple #7C3AED */
-    --primary-foreground: 255 255 255;
-
-    --secondary: 243 236 245; /* Soft warm lavender/cream #F3ECF5 */
-    --secondary-foreground: 45 35 48;
-
-    --muted: 243 236 245; /* Same soft lavender cream for muted areas */
-    --muted-foreground: 142 126 144; /* Lavender-gray #8E7E90 */
-
-    --accent: 245 240 251; /* Soft lavender tint #F5F0FB */
-    --accent-foreground: 124 58 237;
-
-    --border: 234 223 234; /* Light lavender border #EADFEA */
-    --input: 234 223 234;
-
-    --ring: 124 58 237;
-
-    /* Theme-specific glows */
-    --radial-glow: rgba(124, 58, 237, 0.08);
-  }
-
-  .dark {
-    /* Premium Dark Theme with Glowing Lavender Brand Colors */
-    --background: 11 11 11; /* Deep rich obsidian #0B0B0B */
-    --foreground: 236 236 236; /* Off-white */
-
-    --card: 20 20 20; /* Dark card bg */
-    --card-foreground: 236 236 236;
-
-    --primary: 167 139 250; /* Glowing Lavender/Violet #A78BFA */
-    --primary-foreground: 11 11 11; /* Deep obsidian text */
-
-    --secondary: 28 25 36; /* Deep lavender-tinted dark gray #1C1924 */
-    --secondary-foreground: 236 236 236;
-
-    --muted: 24 24 24;
-    --muted-foreground: 140 135 150; /* Muted lavender-gray */
-
-    --accent: 46 37 58; /* Warm violet/lavender highlight #2E253A */
-    --accent-foreground: 167 139 250;
-
-    --border: 50 43 61; /* Subtle warm border #322B3D */
-    --input: 50 43 61;
-
-    --ring: 167 139 250;
-
-    --radial-glow: rgba(167, 139, 250, 0.06); /* Glowing lavender radial glow */
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
@@ -501,4 +442,277 @@
 /* Theme Grid Overlay */
 .theme-grid-overlay {
   @apply pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.1)_1px,transparent_1px)] bg-[size:60px_60px] opacity-[0.06] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] dark:opacity-[0.03];
+}
+
+/* Academy identity: warm paper, forest ink and restrained editorial type. */
+@layer base {
+  :root {
+    --background: 248 247 242;
+    --foreground: 34 49 41;
+    --card: 255 254 250;
+    --card-foreground: 34 49 41;
+    --primary: 38 79 59;
+    --primary-foreground: 255 255 255;
+    --secondary: 237 238 230;
+    --secondary-foreground: 34 49 41;
+    --muted: 237 238 230;
+    --muted-foreground: 95 105 96;
+    --accent: 230 235 224;
+    --accent-foreground: 38 79 59;
+    --border: 215 219 208;
+    --input: 215 219 208;
+    --ring: 38 79 59;
+    --radial-glow: transparent;
+  }
+  .dark {
+    --background: 23 32 27;
+    --foreground: 241 241 230;
+    --card: 30 41 34;
+    --card-foreground: 241 241 230;
+    --primary: 177 204 166;
+    --primary-foreground: 23 32 27;
+    --secondary: 36 48 40;
+    --secondary-foreground: 241 241 230;
+    --muted: 36 48 40;
+    --muted-foreground: 172 183 170;
+    --accent: 43 58 47;
+    --accent-foreground: 177 204 166;
+    --border: 65 79 66;
+    --input: 65 79 66;
+    --ring: 177 204 166;
+    --radial-glow: transparent;
+  }
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+  section[id],
+  main[id] {
+    scroll-margin-top: 6rem;
+  }
+}
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -5rem;
+  z-index: 60;
+  padding: 0.75rem 1rem;
+  background: rgb(var(--primary));
+  color: rgb(var(--primary-foreground));
+}
+.skip-link:focus {
+  top: 1rem;
+}
+.eyebrow {
+  font-size: 0.69rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(var(--primary));
+}
+.editorial-heading,
+.academy-hero h1 {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+}
+.editorial-heading {
+  font-size: clamp(2.1rem, 3.8vw, 3.4rem);
+}
+.academy-hero {
+  padding-top: 8.5rem;
+}
+.academy-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  align-items: center;
+  gap: 3rem;
+  padding-bottom: 3.5rem;
+}
+.academy-hero h1 {
+  font-size: clamp(3rem, 4.7vw, 4.7rem);
+  margin: 1.6rem 0;
+}
+.academy-hero h1 em {
+  color: rgb(var(--primary));
+}
+.hero-description {
+  max-width: 29rem;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgb(var(--muted-foreground));
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+.academy-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  border-radius: 3px;
+  background: rgb(var(--primary));
+  color: rgb(var(--primary-foreground));
+  padding: 1rem 1.3rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.academy-button:hover {
+  background: rgb(var(--foreground));
+}
+.academy-button:active {
+  transform: translateY(1px);
+}
+.academy-link {
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: rgb(var(--border));
+  transition: color 0.2s;
+}
+.academy-link:hover {
+  color: rgb(var(--primary));
+  text-decoration-color: currentColor;
+}
+.hero-note {
+  margin-top: 2rem;
+  font-size: 0.7rem;
+  color: rgb(var(--muted-foreground));
+}
+.hero-note span {
+  padding: 0 0.75rem;
+}
+.hero-image-wrap {
+  position: relative;
+  min-height: 30rem;
+  height: 39vw;
+  max-height: 35rem;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.academy-hero-photo figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.9rem;
+  font-size: 0.67rem;
+  color: rgb(var(--muted-foreground));
+}
+.academy-quicklinks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-block: 1px solid rgb(var(--border));
+  font-size: 0.8rem;
+}
+.academy-quicklinks > span {
+  color: rgb(var(--muted-foreground));
+}
+.academy-quicklinks a {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: color 0.2s;
+}
+.academy-quicklinks a:hover {
+  color: rgb(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.academy-lab-row {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr 1.25rem;
+  align-items: start;
+  gap: 1.25rem;
+  padding: 1.65rem 0;
+  border-bottom: 1px solid rgb(var(--border));
+  transition: background 0.2s;
+}
+.academy-lab-row:hover {
+  background: rgb(var(--muted) / 0.6);
+}
+.academy-event-row {
+  display: grid;
+  grid-template-columns: 10rem 1fr 7rem 1rem;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.6rem 0;
+  border-top: 1px solid rgb(var(--border));
+  transition: color 0.2s;
+}
+.academy-event-row:hover {
+  color: rgb(var(--primary));
+}
+@media (max-width: 1023px) {
+  .academy-hero-grid {
+    gap: 2rem;
+  }
+  .hero-image-wrap {
+    min-height: 28rem;
+  }
+  .academy-quicklinks > span {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .academy-hero {
+    padding-top: 6.5rem;
+  }
+  .academy-hero-grid {
+    grid-template-columns: 1fr;
+    padding-bottom: 2rem;
+  }
+  .academy-hero h1 {
+    font-size: clamp(2.8rem, 10vw, 4.4rem);
+  }
+  .hero-image-wrap {
+    min-height: 0;
+    height: auto;
+    aspect-ratio: 4/3;
+  }
+  .academy-quicklinks {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .academy-quicklinks a {
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+  }
+  .academy-event-row {
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+  }
+  .academy-event-row h3 {
+    grid-row: 2;
+    grid-column: 1;
+  }
+  .academy-event-row > span:last-child {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

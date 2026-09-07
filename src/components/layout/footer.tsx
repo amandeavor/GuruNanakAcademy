@@ -10,15 +10,13 @@ export function Footer() {
   const pathname = usePathname();
 
   return (
-    <footer className="border-t border-purple-200/30 bg-purple-50/40 transition-colors duration-300 dark:border-border/20 dark:bg-zinc-950">
+    <footer className="border-t border-primary/30 bg-primary/40 transition-colors duration-300 dark:border-border/20 dark:bg-background">
       {/* CTA Band */}
       {pathname !== '/admission/form' && (
-        <div className="border-b border-purple-200/30 bg-forest/[0.04] dark:border-white/5 dark:bg-purple-950/30">
+        <div className="border-b border-primary/30 bg-forest/[0.04] dark:border-white/5 dark:bg-primary/30">
           <div className="container-custom flex flex-col items-center justify-between gap-4 py-8 text-center sm:flex-row sm:text-left md:py-10">
             <div>
-              <p className="text-lg font-semibold text-foreground">
-                Ready to be part of our legacy?
-              </p>
+              <p className="text-lg font-semibold text-foreground">Come and get to know us.</p>
               <p className="mt-1 text-sm text-muted-foreground">
                 Admissions open for the 2026–27 academic year.
               </p>
@@ -174,7 +172,7 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-purple-200/20 py-3 dark:border-white/5 md:py-4">
+      <div className="border-t border-primary/20 py-3 dark:border-white/5 md:py-4">
         <div className="container-custom flex flex-col items-center justify-between gap-1 text-center sm:flex-row sm:text-left md:gap-2">
           <p className="text-[10px] text-muted-foreground md:text-xs">
             ©{currentYear} {SCHOOL_INFO.name}. All rights reserved.
