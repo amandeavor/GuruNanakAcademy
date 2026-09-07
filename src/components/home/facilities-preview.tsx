@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FACILITIES } from '@/lib/constants';
 export function FacilitiesPreview() {
   return (
-    <section className="section-padding" aria-labelledby="facilities-heading">
+    <section className="section-padding academy-facilities" aria-labelledby="facilities-heading">
       <div className="container-custom">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-5">
           <div>
@@ -17,7 +17,7 @@ export function FacilitiesPreview() {
           </Link>
         </div>
         <div className="grid gap-8 md:grid-cols-2">
-          <Link href="/boarding" className="group">
+          <Link href="/boarding" className="academy-feature group">
             <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-sm">
               <Image
                 src="/images/hero-bg.png"

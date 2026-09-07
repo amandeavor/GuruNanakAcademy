@@ -6,7 +6,7 @@ export function AboutSummary() {
     <section className="section-padding academy-about" aria-labelledby="about-heading">
       <div className="container-custom grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
         <figure>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+          <div className="academy-photo relative aspect-[4/3] overflow-hidden rounded-sm">
             <Image
               src="/images/about.png"
               alt="The Guru Nanak Academy entrance beneath mature campus trees"

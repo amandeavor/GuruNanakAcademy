@@ -465,21 +465,21 @@
     --radial-glow: transparent;
   }
   .dark {
-    --background: 23 32 27;
-    --foreground: 241 241 230;
-    --card: 30 41 34;
-    --card-foreground: 241 241 230;
-    --primary: 177 204 166;
-    --primary-foreground: 23 32 27;
-    --secondary: 36 48 40;
-    --secondary-foreground: 241 241 230;
-    --muted: 36 48 40;
-    --muted-foreground: 172 183 170;
-    --accent: 43 58 47;
-    --accent-foreground: 177 204 166;
-    --border: 65 79 66;
-    --input: 65 79 66;
-    --ring: 177 204 166;
+    --background: 25 25 24;
+    --foreground: 239 236 230;
+    --card: 32 32 30;
+    --card-foreground: 239 236 230;
+    --primary: 211 190 153;
+    --primary-foreground: 25 25 24;
+    --secondary: 39 38 36;
+    --secondary-foreground: 239 236 230;
+    --muted: 39 38 36;
+    --muted-foreground: 177 173 165;
+    --accent: 48 45 40;
+    --accent-foreground: 211 190 153;
+    --border: 65 62 57;
+    --input: 65 62 57;
+    --ring: 211 190 153;
     --radial-glow: transparent;
   }
   h1,
@@ -714,5 +714,148 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Final homepage rhythm and interaction details. */
+.academy-hero-copy {
+  padding-block: 1rem;
+}
+.academy-hero-photo {
+  margin: 0;
+}
+.academy-hero-photo .hero-image-wrap {
+  box-shadow: 0 1px 0 rgb(var(--border));
+}
+.academy-about {
+  padding-bottom: clamp(3rem, 7vw, 6rem);
+}
+.academy-photo {
+  aspect-ratio: 5 / 4;
+}
+.academy-facilities {
+  background: rgb(var(--secondary) / 0.38);
+  margin-top: 2rem;
+}
+.academy-feature h3 {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 400;
+}
+.academy-lab-row {
+  padding-inline: 0.6rem;
+}
+.academy-lab-row svg,
+.academy-quicklinks svg,
+.academy-button svg {
+  transition: transform 0.2s ease;
+}
+.academy-lab-row:hover svg {
+  transform: translate(2px, -2px);
+}
+.academy-quicklinks a:hover svg,
+.academy-button:hover svg {
+  transform: translateX(3px);
+}
+.academy-event-row {
+  padding-inline: 0.6rem;
+}
+.academy-event-row:hover {
+  background: rgb(var(--secondary) / 0.5);
+}
+.academy-event-row time {
+  font-variant-numeric: tabular-nums;
+}
+.contact-directory > div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid rgb(var(--border));
+}
+.contact-directory > div:first-child {
+  padding-top: 0;
+}
+.contact-directory h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.8;
+}
+.contact-directory address,
+.contact-directory p,
+.contact-directory ul {
+  font-size: 0.875rem;
+  line-height: 1.8;
+}
+.contact-directory li + li {
+  margin-top: 0.7rem;
+}
+.contact-directory li span {
+  display: block;
+  font-size: 0.7rem;
+  color: rgb(var(--muted-foreground));
+}
+.contact-directory a {
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: rgb(var(--border));
+  text-underline-offset: 4px;
+}
+.contact-directory a:hover {
+  color: rgb(var(--primary));
+  text-decoration-color: currentColor;
+}
+.academy-footer nav a {
+  display: inline-block;
+  padding-block: 0.25rem;
+}
+.academy-footer .editorial-heading {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+}
+.academy-footer a:active {
+  opacity: 0.8;
+}
+@media (max-width: 639px) {
+  .academy-hero-copy {
+    padding-top: 0;
+  }
+  .hero-actions {
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .hero-actions .academy-button {
+    width: 100%;
+  }
+  .hero-actions .academy-link {
+    padding-block: 0.6rem;
+  }
+  .academy-quicklinks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-block: 0.5rem;
+  }
+  .academy-quicklinks a {
+    justify-content: space-between;
+    min-height: 48px;
+  }
+  .academy-quicklinks a + a {
+    border-top: 1px solid rgb(var(--border) / 0.6);
+  }
+  .academy-hero-photo figcaption {
+    font-size: 0.72rem;
+  }
+  .academy-lab-row {
+    gap: 0.75rem;
+    padding-inline: 0;
+  }
+  .academy-event-row {
+    padding-inline: 0;
+  }
+  .contact-directory > div {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .academy-footer .container-custom {
+    text-align: left;
   }
 }

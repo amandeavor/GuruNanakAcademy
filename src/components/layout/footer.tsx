@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { GraduationCap, Phone, Mail, MapPin, Instagram, Facebook, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Facebook, ArrowRight } from 'lucide-react';
 import { SCHOOL_INFO, QUICK_LINKS } from '@/lib/constants';
 
 export function Footer() {
@@ -10,21 +11,18 @@ export function Footer() {
   const pathname = usePathname();
 
   return (
-    <footer className="border-t border-primary/30 bg-primary/40 transition-colors duration-300 dark:border-border/20 dark:bg-background">
+    <footer className="academy-footer border-t border-border bg-secondary/50">
       {/* CTA Band */}
       {pathname !== '/admission/form' && (
-        <div className="border-b border-primary/30 bg-forest/[0.04] dark:border-white/5 dark:bg-primary/30">
+        <div className="border-b border-border">
           <div className="container-custom flex flex-col items-center justify-between gap-4 py-8 text-center sm:flex-row sm:text-left md:py-10">
             <div>
-              <p className="text-lg font-semibold text-foreground">Come and get to know us.</p>
+              <p className="editorial-heading text-foreground">Come and get to know us.</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Admissions open for the 2026–27 academic year.
+                Find out about admissions and life at the Academy.
               </p>
             </div>
-            <Link
-              href="/admission/form"
-              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition-all hover:opacity-90"
-            >
+            <Link href="/admission/form" className="academy-button shrink-0">
               Apply for Admission
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
@@ -42,9 +40,13 @@ export function Footer() {
               className="mb-3 flex items-center gap-2 text-foreground md:mb-4"
               aria-label={`${SCHOOL_INFO.name} - Home`}
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground md:h-10 md:w-10">
-                <GraduationCap className="h-4 w-4 md:h-6 md:w-6" aria-hidden="true" />
-              </div>
+              <Image
+                src="/images/logo.png"
+                alt=""
+                width={42}
+                height={42}
+                className="h-10 w-10 object-contain"
+              />
               <span className="text-base font-bold md:text-lg">{SCHOOL_INFO.name}</span>
             </Link>
             <p className="mb-3 text-xs text-muted-foreground md:mb-4 md:text-sm">
@@ -83,7 +85,7 @@ export function Footer() {
               Contact Us
             </h3>
             <ul className="space-y-2 md:space-y-3">
-              <li className="hidden md:block">
+              <li className="block">
                 <a
                   href={`https://maps.google.com/?q=${SCHOOL_INFO.coordinates.lat},${SCHOOL_INFO.coordinates.lng}`}
                   target="_blank"
@@ -108,7 +110,7 @@ export function Footer() {
                       <a
                         key={i}
                         href={`tel:${phone.number.replace(/[^+\d]/g, '')}`}
-                        className="block transition-colors hover:text-foreground"
+                        className="block break-words transition-colors hover:text-foreground"
                       >
                         {phone.number}
                       </a>
@@ -124,7 +126,7 @@ export function Footer() {
                       <a
                         key={i}
                         href={`mailto:${email.email}`}
-                        className="block transition-colors hover:text-foreground"
+                        className="block break-words transition-colors hover:text-foreground"
                       >
                         {email.email}
                       </a>
@@ -136,7 +138,7 @@ export function Footer() {
           </div>
 
           {/* Social & Hours */}
-          <div className="hidden md:block">
+          <div className="block">
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
               Follow Us
             </h3>
