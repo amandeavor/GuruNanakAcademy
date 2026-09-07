@@ -79,6 +79,7 @@ jobs:
         with:
           name: nextjs-build
           path: .next/
+          include-hidden-files: true
           retention-days: 7
 
   type-check:
@@ -146,7 +147,6 @@ jobs:
 
       - name: Run Lighthouse CI
         run: |
-          npm run build
           lhci autorun --collect.numberOfRuns=1 --collect.startServerCommand="npm run start" --collect.url="http://localhost:3000" --assert.assertions="performance=off"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
