@@ -1,110 +1,97 @@
 'use client';
-
-import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { SAMPLE_EVENTS } from '@/lib/constants';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Calendar, ArrowRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-const categories = ['All', 'Annual', 'Monthly', 'Festival', 'Sports', 'Academic'];
-
+const categories = ['All', ...Array.from(new Set(SAMPLE_EVENTS.map((event) => event.category)))];
 export function EventsList() {
   const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const filteredEvents =
-    selectedCategory === 'All'
-      ? SAMPLE_EVENTS
-      : SAMPLE_EVENTS.filter((event) => event.category === selectedCategory);
-
+  const [query, setQuery] = useState('');
+  const events = useMemo(
+    () =>
+      SAMPLE_EVENTS.filter(
+        (event) =>
+          (selectedCategory === 'All' || event.category === selectedCategory) &&
+          `${event.title} ${event.excerpt}`.toLowerCase().includes(query.toLowerCase())
+      ).sort((a, b) => b.date.localeCompare(a.date)),
+    [selectedCategory, query]
+  );
   return (
     <div>
-      {/* Filter Tabs */}
-      <div className="mb-8 flex flex-wrap gap-2">
+      <div className="event-tools">
+        <div>
+          <label htmlFor="event-search" className="mb-2 block text-sm font-medium">
+            Find an event
+          </label>
+          <input
+            id="event-search"
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search by name or topic"
+            className="event-search"
+          />
+        </div>
+        <p role="status" className="text-sm text-muted-foreground">
+          {events.length} {events.length === 1 ? 'event' : 'events'}
+        </p>
+      </div>
+      <div className="event-filters" role="group" aria-label="Filter events by category">
         {categories.map((category) => (
           <button
             key={category}
+            type="button"
+            aria-pressed={selectedCategory === category}
             onClick={() => setSelectedCategory(category)}
-            className={cn(
-              'rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200',
-              selectedCategory === category
-                ? 'border-primary/30 bg-primary/10 text-primary shadow-lg'
-                : 'border-border bg-transparent text-muted-foreground hover:bg-accent hover:text-foreground'
-            )}
           >
             {category}
           </button>
         ))}
       </div>
-
-      {/* Events Grid */}
-      {filteredEvents.length > 0 ? (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredEvents.map((event, idx) => {
-            const borderColors = [
-              'hover:border-emerald-500/30',
-              'hover:border-sky-500/30',
-              'hover:border-violet-500/30',
-              'hover:border-amber-500/30',
-              'hover:border-rose-500/30',
-              'hover:border-blue-500/30',
-            ];
-            const borderHover = borderColors[idx % borderColors.length];
-            return (
-              <article
-                key={event.id}
-                className={cn(
-                  'group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:shadow-lg',
-                  borderHover
-                )}
+      <div className="event-index">
+        {events.length ? (
+          events.map((event) => (
+            <article key={event.id}>
+              <time dateTime={event.date}>
+                {new Date(event.date).toLocaleDateString('en-IN', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric',
+                  timeZone: 'UTC',
+                })}
+              </time>
+              <div>
+                <p className="eyebrow">{event.category}</p>
+                <h2>
+                  <Link href={`/events/${event.slug}`}>{event.title}</Link>
+                </h2>
+                <p>{event.excerpt}</p>
+              </div>
+              <Link
+                href={`/events/${event.slug}`}
+                className="event-arrow"
+                aria-label={`Read ${event.title}`}
               >
-                <div className="relative aspect-video overflow-hidden">
-                  <PremiumGradientPlaceholder icon={Calendar} />
-                  <Badge
-                    variant="secondary"
-                    className="absolute left-4 top-4 border-0 bg-black/40 text-white backdrop-blur-md"
-                  >
-                    {event.category}
-                  </Badge>
-                </div>
-                <div className="p-6">
-                  <div className="mb-3 flex flex-wrap gap-4 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
-                      {event.date}
-                    </span>
-                  </div>
-                  <h3 className="mb-2 text-lg font-semibold text-foreground transition-colors group-hover:text-primary dark:group-hover:text-white">
-                    {event.title}
-                  </h3>
-                  <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                    {event.excerpt}
-                  </p>
-                  <Link
-                    href={`/events/${event.slug}`}
-                    className="inline-flex items-center gap-1 text-sm font-medium text-foreground/60 transition-colors group-hover:text-foreground"
-                  >
-                    Read More
-                    <ArrowRight
-                      className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="py-12 text-center">
-          <p className="text-muted-foreground">No events found in this category.</p>
-          <Button variant="outline" onClick={() => setSelectedCategory('All')} className="mt-4">
-            View All Events
-          </Button>
-        </div>
-      )}
+                ↗
+              </Link>
+            </article>
+          ))
+        ) : (
+          <div className="empty-state">
+            <h2>No matching events.</h2>
+            <p>Try another phrase or show all categories.</p>
+            <button
+              type="button"
+              className="academy-button"
+              onClick={() => {
+                setQuery('');
+                setSelectedCategory('All');
+              }}
+            >
+              Clear filters
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

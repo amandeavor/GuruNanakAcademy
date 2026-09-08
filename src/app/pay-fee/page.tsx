@@ -1,3 +1,4 @@
+import { PageIntro } from '@/components/shared/page-intro';
 import { Metadata } from 'next';
 import { FeePortalForm } from '@/components/payment/fee-portal-form';
 import { SCHOOL_INFO } from '@/lib/constants';
@@ -17,34 +18,13 @@ export const metadata: Metadata = {
 
 export default function PayFeePage() {
   return (
-    <div className="pt-20">
+    <div className="academy-page pt-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-background py-16 transition-colors duration-300 md:py-24">
-        <div className="theme-grid-overlay" aria-hidden="true" />
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
-          style={{ background: 'var(--radial-glow)' }}
-          aria-hidden="true"
-        />
-        <div className="container-custom relative z-10">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-secondary/50 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-white/60">
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40 dark:bg-white/40"
-                aria-hidden="true"
-              />
-              Secure Payment
-            </span>
-            <h1 className="mt-5 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-              Pay Fee Online
-            </h1>
-            <p className="mt-5 text-base text-muted-foreground">
-              Please enter the student details below to initiate a secure online payment. Supports
-              UPI, Net Banking, and Cards.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageIntro
+        label="School fees"
+        title="School fee payment."
+        description="Have the student’s admission number and fee details ready. Check the information carefully before proceeding to payment."
+      ></PageIntro>
 
       {/* Portal Form Section */}
       <section className="section-padding-sm bg-background">

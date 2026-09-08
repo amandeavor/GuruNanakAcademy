@@ -316,7 +316,7 @@ export function FeePortalForm() {
   };
 
   return (
-    <div className="w-full rounded-xl border border-border bg-card p-6 text-foreground shadow-xl transition-all duration-300 sm:p-8">
+    <div className="form-panel w-full rounded-md border border-border bg-card p-6 text-foreground transition-all duration-300 sm:p-8">
       <AnimatePresence mode="wait">
         {paymentStatus.type === 'success' && paymentStatus.receipt ? (
           <motion.div
@@ -447,7 +447,7 @@ export function FeePortalForm() {
                 {/* Section 1: Student Information */}
                 <div className="space-y-4">
                   <div className="border-b border-border pb-2">
-                    <h3 className="flex items-center gap-2 text-lg font-bold text-primary">
+                    <h3 className="flex items-center gap-2 text-lg font-medium text-foreground">
                       <User className="h-5 w-5" /> Student Details
                     </h3>
                     <p className="mt-0.5 text-xs text-muted-foreground">
@@ -457,14 +457,18 @@ export function FeePortalForm() {
 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label
+                        htmlFor="admissionId"
+                        className="mb-1 block text-sm font-medium text-foreground"
+                      >
                         Admission ID / Roll No *
                       </label>
                       <input
+                        id="admissionId"
                         type="text"
                         {...register('admissionId')}
                         placeholder="e.g. GNA-2024-432"
-                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground shadow-sm outline-none transition-all focus:ring-2 focus:ring-primary"
+                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground outline-none transition-all focus:ring-2 focus:ring-primary"
                       />
                       {errors.admissionId && (
                         <span className="mt-1 block text-xs text-red-600 dark:text-red-400">
@@ -474,14 +478,18 @@ export function FeePortalForm() {
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label
+                        htmlFor="studentName"
+                        className="mb-1 block text-sm font-medium text-foreground"
+                      >
                         Student Full Name *
                       </label>
                       <input
+                        id="studentName"
                         type="text"
                         {...register('studentName')}
                         placeholder="Enter student's name"
-                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground shadow-sm outline-none transition-all focus:ring-2 focus:ring-primary"
+                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground outline-none transition-all focus:ring-2 focus:ring-primary"
                       />
                       {errors.studentName && (
                         <span className="mt-1 block text-xs text-red-600 dark:text-red-400">
@@ -492,12 +500,16 @@ export function FeePortalForm() {
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+                    <label
+                      htmlFor="gradeClass"
+                      className="mb-1 block text-sm font-medium text-foreground"
+                    >
                       Student Class / Grade *
                     </label>
                     <select
+                      id="gradeClass"
                       {...register('gradeClass')}
-                      className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground shadow-sm outline-none transition-all focus:ring-2 focus:ring-primary"
+                      className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground outline-none transition-all focus:ring-2 focus:ring-primary"
                     >
                       {CLASS_OPTIONS.map((grade) => (
                         <option key={grade} value={grade}>
@@ -516,7 +528,7 @@ export function FeePortalForm() {
                 {/* Section 2: Fee & Payment details */}
                 <div className="space-y-4">
                   <div className="border-b border-border pb-2">
-                    <h3 className="flex items-center gap-2 text-lg font-bold text-primary">
+                    <h3 className="flex items-center gap-2 text-lg font-medium text-foreground">
                       <CreditCard className="h-5 w-5" /> Fee Details
                     </h3>
                     <p className="mt-0.5 text-xs text-muted-foreground">
@@ -526,12 +538,16 @@ export function FeePortalForm() {
 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label
+                        htmlFor="feeType"
+                        className="mb-1 block text-sm font-medium text-foreground"
+                      >
                         Fee Component *
                       </label>
                       <select
+                        id="feeType"
                         {...register('feeType')}
-                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground shadow-sm outline-none transition-all focus:ring-2 focus:ring-primary"
+                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground outline-none transition-all focus:ring-2 focus:ring-primary"
                       >
                         <option value="Tuition Fee">Tuition Fee</option>
                         <option value="Admission Fee">Admission Fee</option>
@@ -548,14 +564,18 @@ export function FeePortalForm() {
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label
+                        htmlFor="amount"
+                        className="mb-1 block text-sm font-medium text-foreground"
+                      >
                         Amount (INR) *
                       </label>
                       <input
+                        id="amount"
                         type="text"
                         {...register('amount')}
                         placeholder="Enter amount to pay"
-                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground shadow-sm outline-none transition-all focus:ring-2 focus:ring-primary"
+                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground outline-none transition-all focus:ring-2 focus:ring-primary"
                       />
                       {errors.amount && (
                         <span className="mt-1 block text-xs text-red-600 dark:text-red-400">
@@ -569,7 +589,7 @@ export function FeePortalForm() {
                 {/* Section 3: Contact/Payer Information */}
                 <div className="space-y-4">
                   <div className="border-b border-border pb-2">
-                    <h3 className="flex items-center gap-2 text-lg font-bold text-primary">
+                    <h3 className="flex items-center gap-2 text-lg font-medium text-foreground">
                       <Mail className="h-5 w-5" /> Payer Details
                     </h3>
                     <p className="mt-0.5 text-xs text-muted-foreground">
@@ -578,14 +598,18 @@ export function FeePortalForm() {
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+                    <label
+                      htmlFor="parentName"
+                      className="mb-1 block text-sm font-medium text-foreground"
+                    >
                       Parent / Guardian Name *
                     </label>
                     <input
+                      id="parentName"
                       type="text"
                       {...register('parentName')}
                       placeholder="Enter parent's full name"
-                      className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground shadow-sm outline-none transition-all focus:ring-2 focus:ring-primary"
+                      className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground outline-none transition-all focus:ring-2 focus:ring-primary"
                     />
                     {errors.parentName && (
                       <span className="mt-1 block text-xs text-red-600 dark:text-red-400">
@@ -596,14 +620,18 @@ export function FeePortalForm() {
 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label
+                        htmlFor="email"
+                        className="mb-1 block text-sm font-medium text-foreground"
+                      >
                         Email Address *
                       </label>
                       <input
+                        id="email"
                         type="email"
                         {...register('email')}
                         placeholder="parent@example.com"
-                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground shadow-sm outline-none transition-all focus:ring-2 focus:ring-primary"
+                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground outline-none transition-all focus:ring-2 focus:ring-primary"
                       />
                       {errors.email && (
                         <span className="mt-1 block text-xs text-red-600 dark:text-red-400">
@@ -613,14 +641,18 @@ export function FeePortalForm() {
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label
+                        htmlFor="phone"
+                        className="mb-1 block text-sm font-medium text-foreground"
+                      >
                         Contact Mobile *
                       </label>
                       <input
+                        id="phone"
                         type="tel"
                         {...register('phone')}
                         placeholder="10-digit mobile number"
-                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground shadow-sm outline-none transition-all focus:ring-2 focus:ring-primary"
+                        className="w-full rounded-lg border border-border bg-background p-2.5 text-sm text-foreground outline-none transition-all focus:ring-2 focus:ring-primary"
                       />
                       {errors.phone && (
                         <span className="mt-1 block text-xs text-red-600 dark:text-red-400">
@@ -634,8 +666,7 @@ export function FeePortalForm() {
                 {/* Turnstile Captcha Verification */}
                 <div className="flex flex-col items-center rounded-lg border border-dashed border-border bg-secondary/15 p-4">
                   <span className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-foreground/80">
-                    <ShieldCheck className="h-4 w-4 text-emerald-500" /> Bot Prevention Security
-                    Check
+                    <ShieldCheck className="h-4 w-4 text-emerald-500" /> Verification Check
                   </span>
                   <TurnstileShield
                     key={turnstileKeyCounter}

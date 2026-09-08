@@ -1,11 +1,3 @@
-'use client';
-
-import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { cn } from '@/lib/utils';
-
-const ease = [0.16, 1, 0.3, 1] as const;
-
 const timelineData = [
   {
     year: '1972',
@@ -51,132 +43,27 @@ const timelineData = [
   },
 ];
 
-function TimelineItem({ item, index }: { item: (typeof timelineData)[0]; index: number }) {
-  const itemRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(itemRef, { once: true, margin: '-60px' });
-
-  return (
-    <motion.div
-      ref={itemRef}
-      className="relative grid grid-cols-[40px_1fr] gap-6 md:grid-cols-[120px_40px_1fr] md:gap-8"
-    >
-      {/* Year — visible on md+ */}
-      <div className="hidden items-start justify-end pt-1 md:flex">
-        <motion.span
-          className={cn(
-            'font-sans text-base font-bold tabular-nums transition-colors duration-500',
-            isInView ? 'text-foreground' : 'text-zinc-500'
-          )}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.1, ease }}
-        >
-          {item.year}
-        </motion.span>
-      </div>
-
-      {/* Dot */}
-      <div className="relative flex w-10 flex-col items-center">
-        <motion.div
-          className={cn(
-            'z-20 mt-2 h-3.5 w-3.5 rounded-full border-2 transition-all duration-500',
-            isInView
-              ? 'border-primary bg-primary shadow-[0_0_10px_rgba(167,139,250,0.6)]'
-              : 'border-zinc-300 bg-zinc-200 dark:border-zinc-700 dark:bg-zinc-800'
-          )}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={isInView ? { scale: 1.1, opacity: 1 } : { scale: 1, opacity: 0.5 }}
-          transition={{ duration: 0.4, delay: 0.15, ease }}
-        />
-      </div>
-
-      {/* Content */}
-      <motion.div
-        className="pb-12 md:pb-14"
-        initial={{ opacity: 0, y: 16 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: 0.08, ease }}
-      >
-        {/* Year — mobile only */}
-        <span
-          className={cn(
-            'mb-1 block text-xs font-bold uppercase tracking-wider transition-colors duration-500 md:hidden',
-            isInView ? 'text-foreground' : 'text-zinc-500'
-          )}
-        >
-          {item.year}
-        </span>
-        <h3
-          className={cn(
-            'text-lg font-semibold tracking-tight transition-colors duration-500',
-            isInView ? 'text-foreground' : 'text-zinc-500 dark:text-zinc-400'
-          )}
-        >
-          {item.title}
-        </h3>
-        <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-          {item.description}
-        </p>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export function Timeline() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start center', 'end center'],
-    layoutEffect: false,
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 75,
-    damping: 25,
-    restDelta: 0.001,
-  });
-
-  const lineHeight = useTransform(smoothProgress, [0, 1], ['0%', '100%']);
-
   return (
-    <section className="section-padding bg-muted/30" aria-labelledby="timeline-heading">
-      <div className="container-custom">
-        <div className="mb-16 max-w-xl">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground"
-          >
-            Our Journey
-          </motion.span>
-          <motion.h2
-            id="timeline-heading"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl"
-          >
-            Timeline of Excellence
-          </motion.h2>
+    <section className="section-padding bg-secondary/30" aria-labelledby="history-heading">
+      <div className="container-custom section-split">
+        <div>
+          <p className="eyebrow">Through the years</p>
+          <h2 id="history-heading" className="editorial-heading mt-4">
+            Growing with generations.
+          </h2>
         </div>
-
-        <div className="relative mx-auto max-w-3xl" ref={containerRef}>
-          {/* Static background track line */}
-          <div className="absolute bottom-2 left-[19px] top-2 w-[2px] bg-zinc-200 dark:bg-zinc-800 md:left-[139px]" />
-
-          {/* Animated progress overlay on the line */}
-          <motion.div
-            className="absolute left-[19px] top-2 z-10 w-[2px] origin-top bg-primary shadow-[0_0_8px_rgba(255,140,66,0.6)] md:left-[139px]"
-            style={{ height: lineHeight }}
-            aria-hidden="true"
-          />
-
-          {timelineData.map((item, index) => (
-            <TimelineItem key={item.year} item={item} index={index} />
+        <ol className="school-timeline">
+          {timelineData.map((item) => (
+            <li key={item.year}>
+              <span>{item.year}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

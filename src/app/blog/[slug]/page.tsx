@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
-import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
+import Image from 'next/image';
+import { ShareButton } from '@/components/shared/share-button';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getPostBySlug } from '@/lib/mdx';
 import { SCHOOL_INFO } from '@/lib/constants';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, User, ArrowLeft, Share2, BookOpen } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Calendar, User, ArrowLeft } from 'lucide-react';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -285,9 +285,9 @@ export default async function BlogPostPage({ params }: Props) {
     .slice(0, 2);
 
   return (
-    <div className="pt-20">
+    <div className="academy-page article-page pt-20">
       {/* Back Navigation */}
-      <div className="border-b border-purple-200/20 bg-purple-50/40 backdrop-blur-md transition-colors duration-300 dark:border-white/5 dark:bg-zinc-950/80">
+      <div className="border-b border-border bg-secondary backdrop-blur-md transition-colors duration-300 dark:border-white/5 dark:bg-background/80">
         <div className="container-custom py-4">
           <Link
             href="/blog"
@@ -302,12 +302,6 @@ export default async function BlogPostPage({ params }: Props) {
       <article>
         {/* Header */}
         <header className="relative overflow-hidden border-b border-border/60 bg-background py-12 transition-colors duration-300 md:py-16">
-          <div className="theme-grid-overlay" aria-hidden="true" />
-          <div
-            className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
-            style={{ background: 'var(--radial-glow)' }}
-            aria-hidden="true"
-          />
           <div className="container-custom relative z-10">
             <div className="mx-auto max-w-3xl">
               {post.category && (
@@ -344,8 +338,16 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Featured Image */}
         <div className="container-custom py-10 md:py-16">
           <div className="mx-auto max-w-5xl">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-border">
-              <PremiumGradientPlaceholder icon={BookOpen} />
+            <div className="relative aspect-[16/10] overflow-hidden rounded-md  ring-1 ring-border">
+              {post.image && (
+                <Image
+                  src={post.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 900px"
+                  className="object-cover"
+                />
+              )}
             </div>
           </div>
         </div>
@@ -353,7 +355,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Content */}
         <div className="container-custom py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
-            <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-bold prose-p:leading-relaxed prose-a:text-primary prose-img:rounded-xl prose-img:shadow-lg">
+            <div className="prose-img: prose prose-lg max-w-none dark:prose-invert prose-headings:font-bold prose-p:leading-relaxed prose-a:text-primary prose-img:rounded-xl">
               <MarkdownParser content={post.content} />
             </div>
 
@@ -375,10 +377,7 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Share */}
             <div className="mt-8 flex items-center justify-between border-t border-border pt-8">
               <p className="text-muted-foreground">Share this post</p>
-              <Button variant="outline" size="sm">
-                <Share2 className="mr-2 h-4 w-4" aria-hidden="true" />
-                Share
-              </Button>
+              <ShareButton title={post.title} />
             </div>
           </div>
         </div>
@@ -394,10 +393,18 @@ export default async function BlogPostPage({ params }: Props) {
                 <Link
                   key={relatedPost.slug}
                   href={`/blog/${relatedPost.slug}`}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:flex-row"
+                  className="group flex flex-col overflow-hidden rounded-md border border-border bg-card transition-all duration-300 hover:-translate-y-1  sm:flex-row"
                 >
                   <div className="relative aspect-video flex-shrink-0 overflow-hidden sm:aspect-square sm:w-48">
-                    <PremiumGradientPlaceholder icon={BookOpen} />
+                    {post.image && (
+                      <Image
+                        src={post.image}
+                        alt=""
+                        fill
+                        sizes="(max-width: 1023px) 100vw, 900px"
+                        className="object-cover"
+                      />
+                    )}
                   </div>
                   <div className="flex flex-1 flex-col justify-center p-6">
                     <div className="mb-3 flex items-center gap-2 text-sm text-muted-foreground">

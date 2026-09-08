@@ -19,7 +19,7 @@ describe('Card Components', () => {
     it('applies default styles', () => {
       render(<Card data-testid="card">Content</Card>);
       const card = screen.getByTestId('card');
-      expect(card).toHaveClass('rounded-2xl');
+      expect(card).toHaveClass('rounded-md');
       expect(card).toHaveClass('border');
       expect(card).toHaveClass('bg-card');
     });

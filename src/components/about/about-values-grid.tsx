@@ -1,167 +1,42 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { Heart, Award, Sparkles, HandHeart, GraduationCap } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.05,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 35, scale: 0.98 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
-
+const values = [
+  [
+    'Truthful living',
+    'Honesty, humility and compassion guide how we learn and how we treat one another.',
+  ],
+  [
+    'Service to others',
+    'Gurudwara visits, Shabad chanting and neighbourhood social work connect students with the needs of their community.',
+  ],
+  [
+    'A broad education',
+    'CISCE affiliation and opportunities in sport, arts and service support learning beyond examinations.',
+  ],
+  [
+    'Respect for heritage',
+    'We encourage students to understand India’s cultural heritage and respect people of every religion, caste and creed.',
+  ],
+];
 export function AboutValuesGrid() {
   return (
-    <section className="bg-muted/30 py-12 md:py-20 lg:py-28">
-      <div className="container-custom">
-        {/* Section Header */}
-        <div className="mb-8 text-center md:mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-sm font-medium uppercase tracking-wider text-muted-foreground"
-          >
-            What We Stand For
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mt-3 text-3xl font-bold text-foreground md:text-4xl lg:text-5xl"
-          >
-            Our Foundation
-          </motion.h2>
+    <section className="section-padding bg-secondary/40" aria-labelledby="values-title">
+      <div className="container-custom section-split">
+        <div>
+          <p className="eyebrow">What we stand for</p>
+          <h2 id="values-title" className="editorial-heading mt-4">
+            Values for everyday life.
+          </h2>
         </div>
-
-        {/* Bento Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          className="grid gap-6 md:grid-cols-3 md:grid-rows-2"
-        >
-          {/* Featured Card - Core Values (Large) */}
-          <motion.div
-            variants={cardVariants}
-            className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8 transition-all hover:border-emerald-500/30 hover:shadow-lg md:row-span-2"
-          >
-            <div className="relative z-10 flex h-full flex-col">
-              <div className="mb-auto">
-                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-forest/10 text-gold">
-                  <Heart className="h-7 w-7" />
-                </div>
-                <h3 className="mb-3 text-xl font-bold transition-colors group-hover:text-primary">
-                  Core Values
-                </h3>
-                <p className="leading-relaxed text-muted-foreground">
-                  Divinity, service to society, and a grateful heart are the key quality traits
-                  nurtured in every student of Guru Nanak Academy.
-                </p>
-              </div>
-
-              <ul className="mt-8 space-y-3">
-                {['Truthful Living', 'Equality', 'Humility', 'Compassion'].map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 text-sm font-medium text-muted-foreground md:text-base"
-                  >
-                    <Sparkles className="h-4.5 w-4.5 shrink-0 text-gold" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-
-          {/* Standard Cards */}
-          {[
-            {
-              title: 'Community Service',
-              icon: HandHeart,
-              description:
-                'Students participate in Gurudwara visits for Shabad chanting and neighborhood social work, fostering sensitivity to their environment and human needs.',
-              bg: 'bg-emerald-100 dark:bg-emerald-900/30',
-              text: 'text-emerald-600 dark:text-emerald-400',
-              borderHover: 'hover:border-emerald-500/30',
-              delay: 0.1,
-            },
-            {
-              title: 'CISCE Affiliated',
-              icon: Award,
-              description:
-                'Affiliated to the Council for the Indian School Certificate Examinations (CISCE), New Delhi — a renowned board of education in India.',
-              bg: 'bg-blue-100 dark:bg-blue-900/30',
-              text: 'text-blue-600 dark:text-blue-400',
-              borderHover: 'hover:border-blue-500/30',
-              delay: 0.2,
-            },
-          ].map((card) => (
-            <motion.div
-              key={card.title}
-              variants={cardVariants}
-              className={cn(
-                'group relative overflow-hidden rounded-3xl border border-border bg-card p-8 transition-all hover:shadow-lg',
-                card.borderHover
-              )}
-            >
-              <div
-                className={cn(
-                  'mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl',
-                  card.bg,
-                  card.text
-                )}
-              >
-                <card.icon className="h-7 w-7" />
-              </div>
-              <h3 className="mb-3 text-xl font-bold transition-colors group-hover:text-primary">
-                {card.title}
-              </h3>
-              <p className="leading-relaxed text-muted-foreground">{card.description}</p>
-            </motion.div>
-          ))}
-
-          {/* Heritage Card - Wide */}
-          <motion.div
-            variants={cardVariants}
-            className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8 transition-all hover:border-purple-500/30 hover:shadow-lg md:col-span-2"
-          >
-            <div className="flex flex-col gap-6 md:flex-row md:items-center">
-              <div className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-purple-100 text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
-                <GraduationCap className="h-8 w-8" />
-              </div>
+        <div className="editorial-list">
+          {values.map(([title, text], i) => (
+            <article key={title}>
+              <span className="list-number">0{i + 1}</span>
               <div>
-                <h3 className="mb-3 text-xl font-bold text-foreground transition-colors group-hover:text-primary">
-                  Heritage & Vision
-                </h3>
-                <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-                  We aim to impart liberal and balanced education according to current societal
-                  needs, inspiring students to respect and follow India's rich cultural heritage.
-                </p>
+                <h3>{title}</h3>
+                <p>{text}</p>
               </div>
-            </div>
-          </motion.div>
-        </motion.div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

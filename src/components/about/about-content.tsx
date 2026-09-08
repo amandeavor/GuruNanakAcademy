@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Quote, Sparkles, BookOpen } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { SCHOOL_INFO } from '@/lib/constants';
-import { cn } from '@/lib/utils';
 
 export function AboutContent() {
   return (
@@ -17,10 +16,11 @@ export function AboutContent() {
         className="space-y-6"
       >
         <div className="flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-primary">
-          <Sparkles className="h-4 w-4" />
           <span>Established 1972</span>
         </div>
-        <h2 className="text-3xl font-bold text-foreground md:text-4xl">A Legacy of Excellence</h2>
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
+          Rooted in Dehradun since 1972.
+        </h2>
         <div className="space-y-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
           <p>
             <span className="font-semibold text-foreground">{SCHOOL_INFO.name}</span> is one of the
@@ -48,12 +48,8 @@ export function AboutContent() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative overflow-hidden rounded-3xl bg-primary/5 p-8 md:p-12"
+        className="relative overflow-hidden border-t border-border pt-8"
       >
-        <div className="absolute right-0 top-0 p-8 opacity-10">
-          <Quote className="h-48 w-48 rotate-180" />
-        </div>
-
         <div className="relative z-10">
           <h3 className="mb-8 flex items-center gap-3 text-2xl font-bold">
             <BookOpen className="h-6 w-6 text-primary" />
@@ -62,7 +58,7 @@ export function AboutContent() {
 
           <div className="max-w-3xl">
             <blockquote className="space-y-6">
-              <p className="text-xl font-medium italic leading-normal text-foreground md:text-3xl">
+              <p className="text-xl font-normal italic leading-relaxed text-foreground md:text-2xl">
                 "Main nahi, kich houn nahi, kich aye na mora, awsar lajja raakh le, sadna jan tera"
               </p>
               <footer className="flex items-center gap-4">
@@ -73,7 +69,7 @@ export function AboutContent() {
               </footer>
             </blockquote>
 
-            <div className="mt-8 rounded-2xl border border-border/50 bg-background/50 p-6 backdrop-blur-sm">
+            <div className="mt-8 rounded-md border border-border/50 bg-background/50 p-6 backdrop-blur-sm">
               <p className="text-lg leading-relaxed text-muted-foreground">
                 Lord I am nothing, nothing belongs to me, I know nothing – Yet you somehow do always
                 come at the right moment to help me to keep alive my self respect and esteem.
