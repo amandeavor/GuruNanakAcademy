@@ -1,7 +1,7 @@
 'use client';
 
-import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
-import { User } from 'lucide-react';
+import Image from 'next/image';
+
 import { motion } from 'framer-motion';
 import { LEADERSHIP } from '@/lib/constants';
 import { cn } from '@/lib/utils';
@@ -60,8 +60,7 @@ export function LeadershipSection() {
             transition={{ delay: 0.2 }}
             className="mt-4 leading-relaxed text-muted-foreground"
           >
-            Visionaries guiding our institution towards excellence in education and character
-            building.
+            Meet the people who guide the Academy’s teaching, care and daily life.
           </motion.p>
         </div>
 
@@ -86,8 +85,14 @@ export function LeadershipSection() {
                 >
                   {/* Image */}
                   <div className="flex w-full shrink-0 justify-center md:w-2/5">
-                    <div className="relative h-64 w-64 overflow-hidden rounded-full border-4 border-forest/10 bg-muted shadow-lg md:h-72 md:w-72 lg:h-80 lg:w-80">
-                      <PremiumGradientPlaceholder icon={User} />
+                    <div className="relative h-64 w-64 overflow-hidden rounded-sm border border-border bg-muted  md:h-72 md:w-72 lg:h-80 lg:w-80">
+                      <Image
+                        src={leader.image}
+                        alt={leader.name}
+                        fill
+                        sizes="(max-width: 767px) 260px, 320px"
+                        className="object-cover object-top"
+                      />
                     </div>
                   </div>
 

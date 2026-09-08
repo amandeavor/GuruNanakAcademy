@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
-import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
+import Image from 'next/image';
+import { ShareButton } from '@/components/shared/share-button';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SAMPLE_EVENTS, SCHOOL_INFO } from '@/lib/constants';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Calendar, ArrowLeft, Share2 } from 'lucide-react';
+
+import { Calendar, ArrowLeft } from 'lucide-react';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -57,9 +58,9 @@ export default async function EventDetailPage({ params }: Props) {
   ).slice(0, 2);
 
   return (
-    <div className="pt-20">
+    <div className="academy-page article-page pt-20">
       {/* Back Navigation */}
-      <div className="border-b border-purple-200/20 bg-purple-50/40 backdrop-blur-md transition-colors duration-300 dark:border-white/5 dark:bg-zinc-950/80">
+      <div className="border-b border-border bg-secondary backdrop-blur-md transition-colors duration-300 dark:border-white/5 dark:bg-background/80">
         <div className="container-custom py-4">
           <Link
             href="/events"
@@ -74,12 +75,6 @@ export default async function EventDetailPage({ params }: Props) {
       {/* Event Header */}
       <article>
         <header className="relative overflow-hidden border-b border-border/60 bg-background py-12 transition-colors duration-300 md:py-16">
-          <div className="theme-grid-overlay" aria-hidden="true" />
-          <div
-            className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
-            style={{ background: 'var(--radial-glow)' }}
-            aria-hidden="true"
-          />
           <div className="container-custom relative z-10">
             <div className="mx-auto max-w-4xl">
               <Badge
@@ -104,8 +99,14 @@ export default async function EventDetailPage({ params }: Props) {
         {/* Featured Image */}
         <div className="container-custom -mt-0 md:-mt-4">
           <div className="mx-auto max-w-4xl">
-            <div className="relative aspect-video overflow-hidden rounded-2xl">
-              <PremiumGradientPlaceholder icon={Calendar} />
+            <div className="relative aspect-video overflow-hidden rounded-md">
+              <Image
+                src={event.image}
+                alt="Academy campus photograph"
+                fill
+                sizes="(max-width: 1023px) 100vw, 900px"
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
@@ -116,28 +117,12 @@ export default async function EventDetailPage({ params }: Props) {
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="lead text-lg text-muted-foreground">{event.excerpt}</p>
               <p>{event.content}</p>
-              <h2>Event Highlights</h2>
-              <ul>
-                <li>Opening ceremony with special guests</li>
-                <li>Student performances and exhibitions</li>
-                <li>Prize distribution for outstanding achievements</li>
-                <li>Cultural program showcasing student talents</li>
-                <li>Interactive sessions and workshops</li>
-              </ul>
-              <p>
-                We extend our heartfelt gratitude to all who participated in making this event a
-                grand success. Such occasions strengthen the bond between our school and the
-                community we serve.
-              </p>
             </div>
 
             {/* Share */}
             <div className="mt-12 flex items-center justify-between border-t border-border pt-8">
               <p className="text-muted-foreground">Share this event</p>
-              <Button variant="outline" size="sm">
-                <Share2 className="mr-2 h-4 w-4" aria-hidden="true" />
-                Share
-              </Button>
+              <ShareButton title={event.title} />
             </div>
           </div>
         </div>
@@ -153,10 +138,16 @@ export default async function EventDetailPage({ params }: Props) {
                 <Link
                   key={relatedEvent.id}
                   href={`/events/${relatedEvent.slug}`}
-                  className="group overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-lg"
+                  className="group overflow-hidden rounded-md border border-border bg-card transition-shadow "
                 >
                   <div className="relative aspect-video overflow-hidden">
-                    <PremiumGradientPlaceholder icon={Calendar} />
+                    <Image
+                      src={relatedEvent.image}
+                      alt=""
+                      fill
+                      sizes="(max-width: 767px) 100vw, 45vw"
+                      className="object-cover"
+                    />
                   </div>
                   <div className="p-6">
                     <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">

@@ -1,6 +1,7 @@
+import { PageIntro } from '@/components/shared/page-intro';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { FileDown, ArrowRight, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AdmissionSteps } from '@/components/admission/admission-steps';
 import { SubjectChoices } from '@/components/admission/subject-choices';
@@ -21,57 +22,20 @@ export const metadata: Metadata = {
 
 export default function AdmissionPage() {
   return (
-    <div className="pt-20">
+    <div className="academy-page pt-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-background py-20 transition-colors duration-300 md:py-32">
-        <div className="theme-grid-overlay" aria-hidden="true" />
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
-          style={{ background: 'var(--radial-glow)' }}
-          aria-hidden="true"
-        />
-        <div className="container-custom relative z-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-secondary/50 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-white/60">
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40 dark:bg-white/40"
-                aria-hidden="true"
-              />
-              Join Our Family
-            </span>
-            <h1 className="mt-5 text-3xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              Admission Procedure
-            </h1>
-            <p className="mt-5 text-base text-muted-foreground md:text-lg">
-              Admissions to the School are open to all during the months of April/May/June depending
-              on vacancies on a first come basis.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button
-                asChild
-                size="lg"
-                className="border-0 bg-primary font-medium text-primary-foreground shadow-md hover:opacity-90"
-              >
-                <Link href="/admission/form">
-                  Apply Now
-                  <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <a
-                  href="/documents/fees-chart-2025-26.pdf"
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FileDown className="mr-2 h-5 w-5" aria-hidden="true" />
-                  Download Fee Chart
-                </a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageIntro
+        label="Admissions"
+        title="Your next chapter starts here."
+        description="A guide to joining Guru Nanak Academy, from eligibility and subject choices to the documents you will need."
+      >
+        <Link className="academy-button" href="/admission/form">
+          Start an application <span aria-hidden="true">↗</span>
+        </Link>
+        <Link className="academy-link" href="/contact">
+          Ask about fees
+        </Link>
+      </PageIntro>
 
       {/* Admission Steps */}
       <AdmissionSteps steps={ADMISSION_STEPS} />
@@ -87,10 +51,10 @@ export default function AdmissionPage() {
               Age Requirements
             </h2>
 
-            <div className="rounded-2xl border border-border bg-card p-8">
+            <div className="rounded-md border border-border bg-card p-8">
               <p className="mb-6 text-muted-foreground">
-                The school adheres to the 5-year class formula for fixing the age at the time of
-                admission for Nursery plus 3 years.
+                Use the age guide below when preparing your application. Contact the school office
+                if you need help confirming eligibility.
               </p>
 
               <div className="space-y-4">
@@ -139,7 +103,7 @@ export default function AdmissionPage() {
             </h2>
 
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-2xl border border-border bg-card p-6">
+              <div className="rounded-md border border-border bg-card p-6">
                 <h3 className="mb-4 text-lg font-semibold text-foreground">
                   For Nursery Admission
                 </h3>
@@ -160,7 +124,7 @@ export default function AdmissionPage() {
                 </ul>
               </div>
 
-              <div className="rounded-2xl border border-border bg-card p-6">
+              <div className="rounded-md border border-border bg-card p-6">
                 <h3 className="mb-4 text-lg font-semibold text-foreground">For Other Classes</h3>
                 <ul className="space-y-3">
                   {[
@@ -182,8 +146,8 @@ export default function AdmissionPage() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 dark:border-purple-900/50 dark:bg-purple-900/20">
-              <p className="text-sm text-purple-800 dark:text-purple-200">
+            <div className="mt-6 rounded-xl border border-border bg-secondary p-4 dark:border-border dark:bg-secondary">
+              <p className="text-sm text-primary dark:text-primary">
                 <strong>Important:</strong> Admissions are made strictly on merit. Any form of
                 canvassing will automatically result in the rejection of candidature.
               </p>
@@ -196,8 +160,7 @@ export default function AdmissionPage() {
       <SubjectChoices />
 
       {/* Academic Year Info */}
-      <section className="relative overflow-hidden border-t border-purple-200/20 bg-purple-50/30 py-14 transition-colors duration-300 dark:border-white/5 dark:bg-zinc-950 md:py-20">
-        <div className="theme-grid-overlay" aria-hidden="true" />
+      <section className="relative overflow-hidden border-t border-border bg-secondary py-14 transition-colors duration-300 dark:border-white/5 dark:bg-background md:py-20">
         <div className="container-custom relative z-10 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
             Academic Calendar

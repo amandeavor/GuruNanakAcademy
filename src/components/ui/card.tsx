@@ -10,8 +10,8 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     <div
       ref={ref}
       className={cn(
-        'rounded-2xl border border-border bg-card text-card-foreground shadow-soft',
-        hover && 'transition-all duration-300 hover:-translate-y-1 hover:shadow-soft-lg',
+        'rounded-md border border-border bg-card text-card-foreground',
+        hover && 'transition-all duration-300 hover:border-primary/40',
         className
       )}
       {...props}
@@ -69,7 +69,7 @@ const CardImage = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      'overflow-hidden rounded-t-2xl',
+      'overflow-hidden rounded-t-md',
       aspectRatio === 'video' && 'aspect-video',
       aspectRatio === 'photo' && 'aspect-photo',
       aspectRatio === 'square' && 'aspect-square',

@@ -1,7 +1,8 @@
+import { PageIntro } from '@/components/shared/page-intro';
 import { Metadata } from 'next';
-import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Check, Clock, Users, Shield, Heart, Home } from 'lucide-react';
+import { Check, Clock, Users, Shield, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SCHOOL_INFO } from '@/lib/constants';
 
@@ -68,58 +69,32 @@ const dayBoardingHighlights = [
 
 export default function BoardingPage() {
   return (
-    <div className="pt-20">
+    <div className="academy-page pt-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-background py-20 transition-colors duration-300 md:py-28">
-        <div className="theme-grid-overlay" aria-hidden="true" />
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
-          style={{ background: 'var(--radial-glow)' }}
-          aria-hidden="true"
-        />
-        <div className="container-custom relative z-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-secondary/50 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-white/60">
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40 dark:bg-white/40"
-                aria-hidden="true"
-              />
-              Home Away From Home
-            </span>
-            <h1 className="mt-5 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              Boarding Facilities
-            </h1>
-            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              Our boarding facilities provide a safe, nurturing environment where students can live,
-              learn, and grow together as part of our school family.
-            </p>
-            <div className="mt-8">
-              <Button
-                asChild
-                size="lg"
-                className="border-0 bg-primary font-medium text-primary-foreground shadow-md hover:opacity-90"
-              >
-                <Link href="/admission/form">
-                  Apply Now
-                  <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageIntro
+        label="Boarding"
+        title="A home within the Academy."
+        description="Boarding and day-boarding combine a caring routine with time to learn, make friends and explore new interests."
+      >
+        <Link className="academy-button" href="/admission/form">
+          Apply for admission <span aria-hidden="true">↗</span>
+        </Link>
+        <Link className="academy-link" href="#dayboarding">
+          Explore day-boarding
+        </Link>
+      </PageIntro>
 
       {/* Features Grid */}
       <section className="section-padding-sm bg-background">
         <div className="container-custom">
-          <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
             {boardingFeatures.map((feature, i) => {
               const Icon = feature.icon;
               const accents = [
-                { bg: 'bg-emerald-500/10', icon: 'text-emerald-400' },
-                { bg: 'bg-sky-500/10', icon: 'text-sky-400' },
-                { bg: 'bg-rose-500/10', icon: 'text-rose-400' },
-                { bg: 'bg-amber-500/10', icon: 'text-amber-400' },
+                { bg: 'bg-secondary', icon: 'text-primary' },
+                { bg: 'bg-secondary', icon: 'text-primary' },
+                { bg: 'bg-secondary', icon: 'text-primary' },
+                { bg: 'bg-secondary', icon: 'text-primary' },
               ];
               const a = accents[i % accents.length];
               return (
@@ -151,15 +126,33 @@ export default function BoardingPage() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             {/* Images */}
             <div className="grid gap-4">
-              <div className="relative aspect-video overflow-hidden rounded-2xl">
-                <PremiumGradientPlaceholder icon={Home} />
+              <div className="relative aspect-video overflow-hidden rounded-md">
+                <Image
+                  src="/images/hero-bg.png"
+                  alt="Academy campus buildings"
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 45vw"
+                  className="object-cover"
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative aspect-square overflow-hidden rounded-xl">
-                  <PremiumGradientPlaceholder icon={Home} />
+                  <Image
+                    src="/images/library1.png"
+                    alt="The school library"
+                    fill
+                    sizes="(max-width: 1023px) 50vw, 25vw"
+                    className="object-cover"
+                  />
                 </div>
                 <div className="relative aspect-square overflow-hidden rounded-xl">
-                  <PremiumGradientPlaceholder icon={Heart} />
+                  <Image
+                    src="/images/basketball.png"
+                    alt="Basketball facilities on campus"
+                    fill
+                    sizes="(max-width: 1023px) 50vw, 25vw"
+                    className="object-cover"
+                  />
                 </div>
               </div>
             </div>
@@ -254,8 +247,14 @@ export default function BoardingPage() {
 
             {/* Images */}
             <div className="order-1 lg:order-2">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                <PremiumGradientPlaceholder icon={Home} />
+              <div className="relative aspect-[4/3] overflow-hidden rounded-md">
+                <Image
+                  src="/images/library2.png"
+                  alt="Library space available to Academy students"
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 45vw"
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>
@@ -263,14 +262,13 @@ export default function BoardingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden border-t border-purple-200/20 bg-purple-50/30 py-16 transition-colors duration-300 dark:border-white/5 dark:bg-zinc-950 md:py-24">
-        <div className="theme-grid-overlay" aria-hidden="true" />
+      <section className="relative overflow-hidden border-t border-border bg-secondary py-16 transition-colors duration-300 dark:border-white/5 dark:bg-background md:py-24">
         <div className="container-custom relative z-10 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
             Why Board With Us
           </p>
           <h2 className="mt-3 text-2xl font-bold text-foreground md:text-4xl">
-            Give Your Child the Best Start
+            Make time for learning and living.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
             Boarders discover that they have much more time to study and pursue their wider

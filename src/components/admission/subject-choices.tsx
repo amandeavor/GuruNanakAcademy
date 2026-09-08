@@ -1,8 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { BookOpen } from 'lucide-react';
-
 const classIXSubjects = {
   science: {
     title: 'Science Stream',
@@ -43,214 +38,52 @@ const classXISubjects = [
 
 export function SubjectChoices() {
   return (
-    <section className="section-padding bg-muted/50" aria-labelledby="subjects-heading">
+    <section className="section-padding bg-secondary/30" aria-labelledby="subjects-heading">
       <div className="container-custom">
-        <div className="mb-12 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-sm font-medium uppercase tracking-wider text-muted-foreground"
-          >
-            Academic Streams
-          </motion.span>
-          <motion.h2
-            id="subjects-heading"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mt-2 text-heading-xl font-bold text-foreground md:text-display"
-          >
-            Subject Choices
-          </motion.h2>
+        <p className="eyebrow">Academic pathways</p>
+        <h2 id="subjects-heading" className="editorial-heading mb-10 mt-4">
+          Choose a course of study.
+        </h2>
+        <h3 className="mb-6 text-xl">Class IX</h3>
+        <div className="subject-options">
+          {Object.entries(classIXSubjects).map(([key, stream]) => (
+            <article key={key}>
+              <div>
+                <h4>{stream.title}</h4>
+                {'note' in stream && (
+                  <p className="mt-2 text-sm text-muted-foreground">{stream.note}</p>
+                )}
+              </div>
+              <div>
+                <h5>Compulsory subjects</h5>
+                <p>{stream.compulsory.join(', ')}</p>
+              </div>
+              <div>
+                <h5>Sixth subject options</h5>
+                <p>{stream.sixth.join(', ')}</p>
+              </div>
+            </article>
+          ))}
         </div>
-
-        {/* Class IX */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <h3 className="mb-8 flex items-center gap-3 text-heading-lg font-bold text-foreground">
-            <BookOpen className="h-6 w-6 text-primary" aria-hidden="true" />
-            Class IX Subject Options
-          </h3>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {Object.entries(classIXSubjects).map(([key, stream], idx) => {
-              const streamAccents = [
-                {
-                  top: 'bg-emerald-500',
-                  text: 'text-emerald-400',
-                  bg: 'bg-emerald-500/10',
-                  border: 'border-emerald-500/10',
-                  badge: 'bg-emerald-500/5 text-emerald-400 border border-emerald-500/10',
-                },
-                {
-                  top: 'bg-sky-500',
-                  text: 'text-sky-400',
-                  bg: 'bg-sky-500/10',
-                  border: 'border-sky-500/10',
-                  badge: 'bg-sky-500/5 text-sky-400 border border-sky-500/10',
-                },
-                {
-                  top: 'bg-violet-500',
-                  text: 'text-violet-400',
-                  bg: 'bg-violet-500/10',
-                  border: 'border-violet-500/10',
-                  badge: 'bg-violet-500/5 text-violet-400 border border-violet-500/10',
-                },
-              ];
-              const a = streamAccents[idx % streamAccents.length];
-
-              return (
-                <div
-                  key={key}
-                  className="group relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:border-border hover:shadow-lg"
-                >
-                  <div className={`h-0.5 w-full ${a.top}`} />
-                  <div className="p-6">
-                    <h4 className="mb-1 text-lg font-semibold text-foreground">{stream.title}</h4>
-                    {'note' in stream && stream.note && (
-                      <p className="mb-4 text-xs italic text-muted-foreground">{stream.note}</p>
-                    )}
-
-                    <div className="mb-6 mt-4">
-                      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground">
-                        Compulsory Subjects
-                      </p>
-                      <ul className="space-y-1.5">
-                        {stream.compulsory.map((subject, i) => (
-                          <li
-                            key={subject}
-                            className="flex items-center gap-2.5 text-sm text-muted-foreground"
-                          >
-                            <span
-                              className={`text-2xs flex h-5 w-5 items-center justify-center rounded-full font-bold ${a.bg} ${a.text}`}
-                            >
-                              {i + 1}
-                            </span>
-                            {subject}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="border-t border-border/60 pt-4">
-                      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground">
-                        6th Subject Options
-                      </p>
-                      <ul className="space-y-1.5">
-                        {stream.sixth.map((subject) => (
-                          <li
-                            key={subject}
-                            className="flex items-center gap-2.5 text-sm text-muted-foreground"
-                          >
-                            <span className={`h-1.5 w-1.5 rounded-full ${a.top}`} />
-                            {subject}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        {/* Class XI */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="mb-8 flex items-center gap-3 text-heading-lg font-bold text-foreground">
-            <BookOpen className="h-6 w-6 text-primary" aria-hidden="true" />
-            Class XI Subject Options
-          </h3>
-
-          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="border-b border-border bg-white/[0.01]">
-                    <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      Stream
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      Core Subjects
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      5th Subject Options (Choose one)
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/60">
-                  {classXISubjects.map((stream, idx) => {
-                    const accents = [
-                      {
-                        text: 'text-emerald-400',
-                        badge: 'bg-emerald-500/5 text-emerald-400 border border-emerald-500/10',
-                        bar: 'bg-emerald-500',
-                      },
-                      {
-                        text: 'text-sky-400',
-                        badge: 'bg-sky-500/5 text-sky-400 border border-sky-500/10',
-                        bar: 'bg-sky-500',
-                      },
-                      {
-                        text: 'text-violet-400',
-                        badge: 'bg-violet-500/5 text-violet-400 border border-violet-500/10',
-                        bar: 'bg-violet-500',
-                      },
-                    ];
-                    const a = accents[idx % accents.length];
-                    return (
-                      <tr key={stream.stream} className="transition-colors hover:bg-white/[0.01]">
-                        <td className="px-6 py-5 align-top">
-                          <div className="flex items-center gap-3">
-                            <div className={`h-4 w-1 rounded-full ${a.bar}`} />
-                            <span className="font-semibold text-foreground md:text-base">
-                              {stream.stream}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="px-6 py-5 align-top">
-                          <ul className="space-y-1">
-                            {stream.subjects.map((subject) => (
-                              <li key={subject} className="text-sm text-muted-foreground">
-                                {subject}
-                              </li>
-                            ))}
-                          </ul>
-                        </td>
-                        <td className="px-6 py-5 align-top">
-                          <div className="flex flex-wrap gap-2">
-                            {stream.fifth.map((subject) => (
-                              <span
-                                key={subject}
-                                className={`rounded-full px-3 py-1 text-xs font-medium ${a.badge}`}
-                              >
-                                {subject}
-                              </span>
-                            ))}
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <p className="mt-4 text-center text-sm text-muted-foreground">
-            <strong>Note:</strong> English is compulsory for all streams in Class XI.
-          </p>
-        </motion.div>
+        <h3 className="mb-6 mt-14 text-xl">Class XI</h3>
+        <div className="subject-options">
+          {classXISubjects.map((stream) => (
+            <article key={stream.stream}>
+              <h4>{stream.stream}</h4>
+              <div>
+                <h5>Core subjects</h5>
+                <p>{stream.subjects.join(', ')}</p>
+              </div>
+              <div>
+                <h5>Fifth subject · choose one</h5>
+                <p>{stream.fifth.join(', ')}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className="mt-5 text-sm text-muted-foreground">
+          English is compulsory for all Class XI streams.
+        </p>
       </div>
     </section>
   );

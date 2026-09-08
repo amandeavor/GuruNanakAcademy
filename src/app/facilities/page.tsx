@@ -1,7 +1,8 @@
+import { PageIntro } from '@/components/shared/page-intro';
 import { Metadata } from 'next';
-import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
+import Image from 'next/image';
 import { LABS, SCHOOL_INFO } from '@/lib/constants';
-import { Check, BookOpen, Trophy, Activity } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Facilities',
@@ -19,34 +20,13 @@ export const metadata: Metadata = {
 
 export default function FacilitiesPage() {
   return (
-    <div className="pt-20">
+    <div className="academy-page pt-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-background py-16 transition-colors duration-300 md:py-24">
-        <div className="theme-grid-overlay" aria-hidden="true" />
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
-          style={{ background: 'var(--radial-glow)' }}
-          aria-hidden="true"
-        />
-        <div className="container-custom relative z-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-secondary/50 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-white/60">
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40 dark:bg-white/40"
-                aria-hidden="true"
-              />
-              World-Class Infrastructure
-            </span>
-            <h1 className="mt-5 text-3xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              Our Facilities
-            </h1>
-            <p className="mt-5 text-base text-muted-foreground md:text-lg">
-              Our school boasts of state-of-the-art infrastructure with modern facilities that meet
-              the highest standards of education and comfort.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageIntro
+        label="Facilities"
+        title="Room for discovery."
+        description="Explore the laboratories, library and places to play across our 13-acre campus."
+      ></PageIntro>
 
       {/* Labs Section */}
       <section className="section-padding bg-background">
@@ -55,40 +35,39 @@ export default function FacilitiesPage() {
             Our Laboratories
           </h2>
 
-          <div className="space-y-16">
+          <div className="facility-list">
             {LABS.map((lab, index) => {
-              const Icon = lab.icon;
               const isReversed = index % 2 === 1;
               const accents = [
                 {
-                  bg: 'bg-blue-500/10',
-                  text: 'text-blue-400',
-                  check: 'text-blue-400',
-                  bullet: 'bg-blue-400',
+                  bg: 'bg-secondary',
+                  text: 'text-primary',
+                  check: 'text-primary',
+                  bullet: 'bg-secondary',
                 },
                 {
-                  bg: 'bg-emerald-500/10',
-                  text: 'text-emerald-400',
-                  check: 'text-emerald-400',
-                  bullet: 'bg-emerald-400',
+                  bg: 'bg-secondary',
+                  text: 'text-primary',
+                  check: 'text-primary',
+                  bullet: 'bg-secondary',
                 },
                 {
-                  bg: 'bg-violet-500/10',
-                  text: 'text-violet-400',
-                  check: 'text-violet-400',
-                  bullet: 'bg-violet-400',
+                  bg: 'bg-secondary',
+                  text: 'text-primary',
+                  check: 'text-primary',
+                  bullet: 'bg-secondary',
                 },
                 {
-                  bg: 'bg-amber-500/10',
-                  text: 'text-amber-400',
-                  check: 'text-amber-400',
-                  bullet: 'bg-amber-400',
+                  bg: 'bg-secondary',
+                  text: 'text-primary',
+                  check: 'text-primary',
+                  bullet: 'bg-secondary',
                 },
               ];
               const a = accents[index % accents.length];
 
               return (
-                <div key={lab.id} id={lab.id} className="scroll-mt-24">
+                <div key={lab.id} id={lab.id} className="facility-detail scroll-mt-24">
                   <div
                     className={`grid items-center gap-8 lg:grid-cols-2 lg:gap-12 ${
                       isReversed ? 'lg:flex-row-reverse' : ''
@@ -96,18 +75,27 @@ export default function FacilitiesPage() {
                   >
                     {/* Image */}
                     <div className={isReversed ? 'lg:order-2' : ''}>
-                      <div className="relative aspect-video overflow-hidden rounded-2xl">
-                        <PremiumGradientPlaceholder icon={Icon} />
+                      <div className="relative aspect-video overflow-hidden rounded-md">
+                        {lab.id !== 'computer' ? (
+                          <Image
+                            src={lab.image}
+                            alt={lab.title}
+                            fill
+                            sizes="(max-width: 1023px) 100vw, 45vw"
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="lab-note">
+                            <p className="eyebrow">Digital learning</p>
+                            <p>From first programs to new possibilities.</p>
+                            <span>Programming · Design · Multimedia</span>
+                          </div>
+                        )}
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className={isReversed ? 'lg:order-1' : ''}>
-                      <div
-                        className={`mb-4 flex h-14 w-14 items-center justify-center rounded-xl ${a.bg} ${a.text}`}
-                      >
-                        <Icon className="h-7 w-7" aria-hidden="true" />
-                      </div>
                       <h3 className="mb-4 text-heading-lg font-bold text-foreground">
                         {lab.title}
                       </h3>
@@ -162,8 +150,14 @@ export default function FacilitiesPage() {
         <div className="container-custom">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             {/* Image */}
-            <div className="relative aspect-video overflow-hidden rounded-2xl lg:aspect-[4/3]">
-              <PremiumGradientPlaceholder icon={BookOpen} />
+            <div className="relative aspect-video overflow-hidden rounded-md lg:aspect-[4/3]">
+              <Image
+                src="/images/library1.png"
+                alt="Library shelves and reading space"
+                fill
+                sizes="(max-width: 1023px) 100vw, 45vw"
+                className="object-cover"
+              />
             </div>
 
             {/* Content */}
@@ -198,7 +192,7 @@ export default function FacilitiesPage() {
                     key={feature}
                     className="flex items-center gap-2 text-sm text-muted-foreground"
                   >
-                    <Check className="h-4 w-4 flex-shrink-0 text-emerald-400" aria-hidden="true" />
+                    <Check className="h-4 w-4 flex-shrink-0 text-primary" aria-hidden="true" />
                     {feature}
                   </li>
                 ))}
@@ -249,24 +243,30 @@ export default function FacilitiesPage() {
               },
             ].map((facility, idx) => {
               const borderColors = [
-                'hover:border-emerald-500/30',
-                'hover:border-sky-500/30',
-                'hover:border-violet-500/30',
-                'hover:border-amber-500/30',
-                'hover:border-rose-500/30',
-                'hover:border-blue-500/30',
+                'hover:border-border',
+                'hover:border-border',
+                'hover:border-border',
+                'hover:border-border',
+                'hover:border-border',
+                'hover:border-border',
               ];
               const borderHover = borderColors[idx % borderColors.length];
               return (
                 <div
                   key={facility.title}
-                  className={`group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:shadow-lg ${borderHover}`}
+                  className={`group overflow-hidden rounded-md border border-border bg-card transition-all duration-300  ${borderHover}`}
                 >
-                  <div className="relative aspect-video overflow-hidden">
-                    <PremiumGradientPlaceholder
-                      icon={facility.title === 'Gymnasium' ? Activity : Trophy}
-                    />
-                  </div>
+                  {['Basketball Court', 'Table Tennis', 'Badminton'].includes(facility.title) && (
+                    <div className="relative aspect-video overflow-hidden">
+                      <Image
+                        src={facility.image}
+                        alt={facility.title}
+                        fill
+                        sizes="(max-width: 767px) 100vw, 33vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                   <div className="p-6">
                     <h3 className="mb-2 text-lg font-semibold text-foreground">{facility.title}</h3>
                     <p className="text-sm text-muted-foreground">{facility.description}</p>
@@ -312,15 +312,21 @@ export default function FacilitiesPage() {
                     key={feature}
                     className="flex items-center gap-2 text-sm text-muted-foreground"
                   >
-                    <Check className="h-4 w-4 flex-shrink-0 text-emerald-400" aria-hidden="true" />
+                    <Check className="h-4 w-4 flex-shrink-0 text-primary" aria-hidden="true" />
                     {feature}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="relative aspect-video overflow-hidden rounded-2xl">
-              <PremiumGradientPlaceholder icon={BookOpen} />
+            <div className="relative aspect-video overflow-hidden rounded-md">
+              <Image
+                src="/images/hero-bg.png"
+                alt="Academy buildings and campus gardens"
+                fill
+                sizes="(max-width: 1023px) 100vw, 45vw"
+                className="object-cover"
+              />
             </div>
           </div>
         </div>

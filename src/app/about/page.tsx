@@ -1,5 +1,6 @@
+import { PageIntro } from '@/components/shared/page-intro';
 import { Metadata } from 'next';
-import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
+import Image from 'next/image';
 import { Timeline } from '@/components/about/timeline';
 import { LeadershipSection } from '@/components/about/leadership-section';
 import { AboutContent } from '@/components/about/about-content';
@@ -23,35 +24,13 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="pt-20">
+    <div className="academy-page pt-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-background py-20 transition-colors duration-300 md:py-32">
-        {/* Subtle grid */}
-        <div className="theme-grid-overlay" aria-hidden="true" />
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
-          style={{ background: 'var(--radial-glow)' }}
-          aria-hidden="true"
-        />
-        <div className="container-custom relative z-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-secondary/50 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-white/60">
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40 dark:bg-white/40"
-                aria-hidden="true"
-              />
-              About Us
-            </span>
-            <h1 className="mt-5 text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-6xl">
-              Our Story
-            </h1>
-            <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground md:mt-6 md:text-lg">
-              Founded on the principles of truthful living and equality, {SCHOOL_INFO.name} has been
-              shaping young minds for over five decades.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageIntro
+        label="About"
+        title="An education with roots."
+        description="A co-educational school in Dehradun, shaped by truthful living, equality and a belief in the potential of every child."
+      ></PageIntro>
 
       {/* Main Content */}
       <section className="section-padding bg-background">
@@ -60,8 +39,14 @@ export default function AboutPage() {
             {/* Image */}
             <div className="relative">
               <div className="sticky top-24">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                  <PremiumGradientPlaceholder />
+                <div className="relative aspect-[4/3] overflow-hidden rounded-md">
+                  <Image
+                    src="/images/about.png"
+                    alt="The Academy entrance beneath mature campus trees"
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 45vw"
+                    className="object-cover"
+                  />
                 </div>
               </div>
             </div>

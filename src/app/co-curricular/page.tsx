@@ -1,5 +1,6 @@
+import { PageIntro } from '@/components/shared/page-intro';
 import { Metadata } from 'next';
-import { PremiumGradientPlaceholder } from '@/components/shared/image-placeholder';
+import Image from 'next/image';
 import Link from 'next/link';
 import { SCHOOL_INFO } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
@@ -49,7 +50,7 @@ const activities = [
     id: 'art',
     title: 'Art & Craft',
     description:
-      'Unleash creativity through our art programs. Students learn painting, sketching, sculpture, and various craft techniques while developing their artistic abilities.',
+      'Explore creative expression through our art programs. Students learn painting, sketching, sculpture, and various craft techniques while developing their artistic abilities.',
     icon: Palette,
     image: '/images/library1.png',
     items: ['Painting', 'Sketching', 'Clay Modeling', 'Paper Craft', 'Origami', 'Sculpture'],
@@ -87,35 +88,13 @@ const galleryImages = [
 
 export default function CoCurricularPage() {
   return (
-    <div className="pt-20">
+    <div className="academy-page pt-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-background py-20 transition-colors duration-300 md:py-32">
-        <div className="theme-grid-overlay" aria-hidden="true" />
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
-          style={{ background: 'var(--radial-glow)' }}
-          aria-hidden="true"
-        />
-        <div className="container-custom relative z-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-secondary/50 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-white/60">
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40 dark:bg-white/40"
-                aria-hidden="true"
-              />
-              Beyond Academics
-            </span>
-            <h1 className="mt-5 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              Co-Curricular Activities
-            </h1>
-            <p className="mt-5 text-base text-muted-foreground md:text-lg">
-              At {SCHOOL_INFO.name}, we believe in nurturing well-rounded individuals. Our diverse
-              co-curricular activities help students discover their passions and develop essential
-              life skills.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageIntro
+        label="Co-curricular"
+        title="Find what moves you."
+        description="On the playing field, on stage and in the studio: opportunities to discover interests beyond the classroom."
+      ></PageIntro>
 
       {/* Activities Section */}
       <section className="section-padding bg-background">
@@ -126,29 +105,29 @@ export default function CoCurricularPage() {
               const isReversed = index % 2 === 1;
               const accents = [
                 {
-                  bg: 'bg-emerald-500/10',
-                  text: 'text-emerald-400',
-                  badge: 'bg-emerald-500/5 text-emerald-400 border border-emerald-500/10',
+                  bg: 'bg-secondary',
+                  text: 'text-primary',
+                  badge: 'bg-secondary text-primary border border-border',
                 },
                 {
-                  bg: 'bg-sky-500/10',
-                  text: 'text-sky-400',
-                  badge: 'bg-sky-500/5 text-sky-400 border border-sky-500/10',
+                  bg: 'bg-secondary',
+                  text: 'text-primary',
+                  badge: 'bg-secondary text-primary border border-border',
                 },
                 {
-                  bg: 'bg-violet-500/10',
-                  text: 'text-violet-400',
-                  badge: 'bg-violet-500/5 text-violet-400 border border-violet-500/10',
+                  bg: 'bg-secondary',
+                  text: 'text-primary',
+                  badge: 'bg-secondary text-primary border border-border',
                 },
                 {
-                  bg: 'bg-amber-500/10',
-                  text: 'text-amber-400',
-                  badge: 'bg-amber-500/5 text-amber-400 border border-amber-500/10',
+                  bg: 'bg-secondary',
+                  text: 'text-primary',
+                  badge: 'bg-secondary text-primary border border-border',
                 },
                 {
-                  bg: 'bg-rose-500/10',
-                  text: 'text-rose-400',
-                  badge: 'bg-rose-500/5 text-rose-400 border border-rose-500/10',
+                  bg: 'bg-secondary',
+                  text: 'text-primary',
+                  badge: 'bg-secondary text-primary border border-border',
                 },
               ];
               const a = accents[index % accents.length];
@@ -158,8 +137,26 @@ export default function CoCurricularPage() {
                   <div className={`grid items-center gap-8 lg:grid-cols-2 lg:gap-12`}>
                     {/* Image */}
                     <div className={isReversed ? 'lg:order-2' : ''}>
-                      <div className="relative aspect-video overflow-hidden rounded-2xl">
-                        <PremiumGradientPlaceholder icon={Icon} />
+                      <div className="relative aspect-video overflow-hidden rounded-md">
+                        {['sports', 'literary'].includes(activity.id) ? (
+                          <Image
+                            src={activity.image}
+                            alt={
+                              activity.id === 'sports'
+                                ? 'Academy basketball court'
+                                : 'School library'
+                            }
+                            fill
+                            sizes="(max-width: 1023px) 100vw, 45vw"
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="activity-note">
+                            <span className="eyebrow">Beyond the classroom</span>
+                            <p>{activity.title}</p>
+                            <span>{activity.items.slice(0, 3).join(' · ')}</span>
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -214,10 +211,16 @@ export default function CoCurricularPage() {
             {galleryImages.map((image, index) => (
               <div
                 key={index}
-                className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-md transition-all duration-300 hover:shadow-xl"
+                className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-md transition-all duration-300 "
               >
                 <div className="relative aspect-[4/3]">
-                  <PremiumGradientPlaceholder icon={Camera} />
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 639px) 50vw, 25vw"
+                    className="object-cover"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
                   <div className="absolute inset-0 flex items-end p-4">
                     <p className="text-sm font-semibold tracking-wide text-white">{image.alt}</p>
@@ -230,8 +233,7 @@ export default function CoCurricularPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden border-t border-purple-200/20 bg-purple-50/30 py-16 transition-colors duration-300 dark:border-white/5 dark:bg-zinc-950 md:py-24">
-        <div className="theme-grid-overlay" aria-hidden="true" />
+      <section className="relative overflow-hidden border-t border-border bg-secondary py-16 transition-colors duration-300 dark:border-white/5 dark:bg-background md:py-24">
         <div className="container-custom relative z-10 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
             Beyond Academics

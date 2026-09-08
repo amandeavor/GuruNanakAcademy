@@ -31,7 +31,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           <select
             id={selectId}
             className={cn(
-              'flex h-11 w-full appearance-none rounded-lg border border-input bg-background px-4 py-2 pr-10 text-sm text-foreground transition-colors',
+              'flex h-11 w-full appearance-none rounded-md border border-input bg-background px-4 py-2 pr-10 text-sm text-foreground transition-colors',
               'focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-0',
               'disabled:cursor-not-allowed disabled:opacity-50',
               error && 'border-red-500 focus:border-red-500 focus:ring-red-500/20',

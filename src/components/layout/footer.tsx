@@ -181,16 +181,16 @@ export function Footer() {
           </p>
           <div className="flex gap-3 text-[10px] md:gap-4 md:text-xs">
             <Link
-              href="/privacy"
+              href="/contact"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
-              Privacy
+              Enquiries
             </Link>
             <Link
-              href="/terms"
+              href="/admission"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
-              Terms
+              Admissions
             </Link>
           </div>
         </div>

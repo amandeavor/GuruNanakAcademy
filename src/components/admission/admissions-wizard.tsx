@@ -192,7 +192,7 @@ export function AdmissionsWizard() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl rounded-xl border border-border bg-card p-6 text-foreground shadow-xl transition-all duration-300 sm:p-8">
+    <div className="form-panel mx-auto w-full max-w-2xl rounded-md border border-border bg-card p-6 text-foreground transition-all duration-300 sm:p-8">
       {/* Step Indicator */}
       <div className="relative mb-8 flex items-center justify-between">
         <div className="absolute left-0 right-0 top-1/2 z-0 h-[2px] -translate-y-1/2 bg-border" />
@@ -207,6 +207,8 @@ export function AdmissionsWizard() {
                   if (idx < currentStep) setStepInUrl(step.id);
                 }}
                 disabled={idx > currentStep}
+                aria-label={`Step ${idx + 1}: ${step.title}`}
+                aria-current={isActive ? 'step' : undefined}
                 className={`flex h-10 w-10 items-center justify-center rounded-full border-2 text-sm font-bold transition-all duration-300 ${
                   isCompleted
                     ? 'cursor-pointer border-primary bg-primary text-primary-foreground hover:opacity-90'
@@ -284,7 +286,7 @@ export function AdmissionsWizard() {
                 type="button"
                 onClick={handlePreviousStep}
                 className={`rounded-lg border border-border bg-card px-6 py-2.5 text-sm font-semibold text-foreground transition-all hover:bg-muted/40 ${
-                  currentStep === 0 ? 'pointer-events-none opacity-0' : 'opacity-100'
+                  currentStep === 0 ? 'invisible' : 'opacity-100'
                 }`}
               >
                 Back
@@ -294,14 +296,14 @@ export function AdmissionsWizard() {
                 <button
                   type="button"
                   onClick={handleNextStep}
-                  className="rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition-all hover:opacity-90"
+                  className="rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:opacity-90"
                 >
                   Continue
                 </button>
               ) : (
                 <button
                   type="submit"
-                  className="flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-bold text-primary-foreground shadow-md transition-all hover:opacity-90"
+                  className="flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-bold text-primary-foreground transition-colors hover:opacity-90"
                 >
                   Submit Application
                 </button>
@@ -325,7 +327,7 @@ function CandidateStepView() {
   return (
     <div className="space-y-5">
       <div className="border-b border-border pb-2">
-        <h3 className="flex items-center gap-2 text-xl font-bold text-primary">
+        <h3 className="flex items-center gap-2 text-xl font-medium text-foreground">
           <GraduationCap className="h-6 w-6" /> Candidate Information
         </h3>
         <p className="mt-1 text-xs text-muted-foreground">
@@ -335,16 +337,17 @@ function CandidateStepView() {
 
       <div className="space-y-4">
         <div>
-          <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+          <label htmlFor="candidateName" className="mb-1 block text-sm font-medium text-foreground">
             Candidate Full Name *
           </label>
           <div className="relative">
             <User className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
             <input
+              id="candidateName"
               type="text"
               {...register('candidateName')}
               placeholder="Enter candidate's full name"
-              className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-foreground outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
           {errors.candidateName && (
@@ -353,15 +356,16 @@ function CandidateStepView() {
         </div>
 
         <div>
-          <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+          <label htmlFor="birthDate" className="mb-1 block text-sm font-medium text-foreground">
             Date of Birth *
           </label>
           <div className="relative">
             <Calendar className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
             <input
+              id="birthDate"
               type="date"
               {...register('birthDate')}
-              className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-foreground outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
           {errors.birthDate && (
@@ -370,12 +374,16 @@ function CandidateStepView() {
         </div>
 
         <div>
-          <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+          <label
+            htmlFor="academicStandard"
+            className="mb-1 block text-sm font-medium text-foreground"
+          >
             Admission Target Grade *
           </label>
           <select
+            id="academicStandard"
             {...register('academicStandard')}
-            className="w-full rounded-lg border border-border bg-background p-2.5 text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-lg border border-border bg-background p-2.5 text-foreground outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="Play Group">Play Group (Ages 3+ as of Mar 31)</option>
             <option value="Kindergarten">Kindergarten (Ages 4+ as of Mar 31)</option>
@@ -388,12 +396,16 @@ function CandidateStepView() {
 
         {selectedStandard === 'Class XI-Science' && (
           <div>
-            <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+            <label
+              htmlFor="eleventhSubjectStream"
+              className="mb-1 block text-sm font-medium text-foreground"
+            >
               Select Science Elective *
             </label>
             <select
+              id="eleventhSubjectStream"
               {...register('eleventhSubjectStream')}
-              className="w-full rounded-lg border border-border bg-background p-2.5 text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-lg border border-border bg-background p-2.5 text-foreground outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">-- Choose Subject Stream --</option>
               <option value="PCM">Physics + Chemistry + Mathematics</option>
@@ -456,7 +468,7 @@ function ParentStepView({
   return (
     <div className="space-y-5">
       <div className="border-b border-border pb-2">
-        <h3 className="flex items-center gap-2 text-xl font-bold text-primary">
+        <h3 className="flex items-center gap-2 text-xl font-medium text-foreground">
           <User className="h-6 w-6" /> Parent/Guardian Details & Records
         </h3>
         <p className="mt-1 text-xs text-muted-foreground">
@@ -467,14 +479,18 @@ function ParentStepView({
       <div className="space-y-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+            <label
+              htmlFor="fatherFullName"
+              className="mb-1 block text-sm font-medium text-foreground"
+            >
               Father's Full Name *
             </label>
             <input
+              id="fatherFullName"
               type="text"
               {...register('fatherFullName')}
               placeholder="Enter father's name"
-              className="w-full rounded-lg border border-border bg-background p-2.5 text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-lg border border-border bg-background p-2.5 text-foreground outline-none focus:ring-2 focus:ring-primary"
             />
             {errors.fatherFullName && (
               <span className="mt-1 block text-xs text-red-600">
@@ -483,14 +499,18 @@ function ParentStepView({
             )}
           </div>
           <div>
-            <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+            <label
+              htmlFor="motherFullName"
+              className="mb-1 block text-sm font-medium text-foreground"
+            >
               Mother's Full Name *
             </label>
             <input
+              id="motherFullName"
               type="text"
               {...register('motherFullName')}
               placeholder="Enter mother's name"
-              className="w-full rounded-lg border border-border bg-background p-2.5 text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-lg border border-border bg-background p-2.5 text-foreground outline-none focus:ring-2 focus:ring-primary"
             />
             {errors.motherFullName && (
               <span className="mt-1 block text-xs text-red-600">
@@ -501,16 +521,17 @@ function ParentStepView({
         </div>
 
         <div>
-          <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+          <label htmlFor="contactPhone" className="mb-1 block text-sm font-medium text-foreground">
             Contact Telephone (10-Digit Mobile) *
           </label>
           <div className="relative">
             <Phone className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
             <input
+              id="contactPhone"
               type="tel"
               {...register('contactPhone')}
               placeholder="9876543210"
-              className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-foreground outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
           {errors.contactPhone && (
@@ -519,7 +540,7 @@ function ParentStepView({
         </div>
 
         <div>
-          <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+          <label className="mb-1 block text-sm font-medium text-foreground">
             Complete Residential Address *
           </label>
           <div className="relative">
@@ -527,7 +548,7 @@ function ParentStepView({
             <textarea
               {...register('residenceAddress')}
               placeholder="Enter complete residential address"
-              className="h-20 w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
+              className="h-20 w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-foreground outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
           {errors.residenceAddress && (
@@ -538,7 +559,7 @@ function ParentStepView({
         </div>
 
         <div className="relative rounded-lg border border-dashed border-border bg-secondary/30 p-5">
-          <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-foreground/80">
+          <label className="mb-2 block text-sm font-medium text-foreground">
             Academic Record Upload (Report Card/Birth Certificate) *
           </label>
           <p className="mb-3 text-xs text-muted-foreground">
@@ -591,7 +612,7 @@ function ReviewStepView() {
   return (
     <div className="space-y-5">
       <div className="border-b border-border pb-2">
-        <h3 className="flex items-center gap-2 text-xl font-bold text-primary">
+        <h3 className="flex items-center gap-2 text-xl font-medium text-foreground">
           <FileText className="h-6 w-6" /> Form Verification
         </h3>
         <p className="mt-1 text-xs text-muted-foreground">

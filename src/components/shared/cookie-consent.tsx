@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Cookie } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function CookieConsent() {
@@ -44,21 +44,18 @@ export function CookieConsent() {
           aria-labelledby="cookie-title"
           aria-describedby="cookie-description"
         >
-          <div className="rounded-2xl border border-border bg-card p-6 shadow-soft-xl">
+          <div className="relative rounded-md border border-border bg-card p-5 shadow-soft-lg">
             {/* Close button */}
             <button
               onClick={handleDecline}
-              className="absolute right-4 top-4 text-muted-foreground hover:text-foreground"
+              className="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-sm text-muted-foreground hover:text-foreground"
               aria-label="Close cookie notice"
             >
               <X className="h-5 w-5" />
             </button>
 
             {/* Content */}
-            <div className="mb-4 flex items-start gap-3">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
-                <Cookie className="h-5 w-5 text-primary" aria-hidden="true" />
-              </div>
+            <div className="mb-4 flex items-start gap-3 pr-8">
               <div>
                 <h3 id="cookie-title" className="text-base font-semibold text-foreground">
                   Cookie Notice
@@ -66,8 +63,8 @@ export function CookieConsent() {
                 <p id="cookie-description" className="mt-1 text-sm text-muted-foreground">
                   We use cookies to enhance your experience. By continuing to visit this site you
                   agree to our use of cookies.{' '}
-                  <Link href="/privacy" className="text-primary underline-offset-4 hover:underline">
-                    Learn more
+                  <Link href="/contact" className="text-primary underline-offset-4 hover:underline">
+                    Contact us
                   </Link>
                 </p>
               </div>

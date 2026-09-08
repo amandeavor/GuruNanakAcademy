@@ -14,7 +14,7 @@ describe('Input Component', () => {
     const input = screen.getByTestId('input');
     expect(input).toHaveClass('flex');
     expect(input).toHaveClass('w-full');
-    expect(input).toHaveClass('rounded-lg');
+    expect(input).toHaveClass('rounded-md');
   });
 
   it('supports different input types', () => {
